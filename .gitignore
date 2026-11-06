@@ -1,0 +1,18 @@
+# Inter convertida a TrueType: 2 MB que se regeneran en 20 s con
+# taller/convertir_fuentes.py. No se versionan.
+taller/fuentes/
+# intermedios del generador
+*.html.bak
+cv-maurice-valdes-bermudez-??.html
+__pycache__/
+*.pyc
+cv/*.html
+
+# NO VAN EN UN REPOSITORIO PÚBLICO, y por eso están aquí y no en un commit:
+#   · la revisión con el análisis de sueldo dice «documento interno, no se
+#     envía con la candidatura»
+#   · el generador de esa revisión lleva el análisis entero en el código
+#   · el CV original es material del cliente
+cv/revision-y-carta-de-presentacion.*
+taller/hacer_revision.py
+taller/origen/

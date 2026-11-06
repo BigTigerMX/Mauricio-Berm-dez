@@ -1,0 +1,2021 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maurice Valdés Bermúdez · Site Reliability Engineer</title>
+<meta name="description" content="Veinte años manteniendo en pie infraestructura crítica. SRE en Nutanix, arquitectura de nube para Pemex e IMSS, seguridad ofensiva en Grupo Elektra. Ciudad de México.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F4F2EF">
+<!-- SIN INDEXAR MIENTRAS SEA SORPRESA. Esta pagina habla en primera persona
+     y ofrece el CV: en Google se lee como «estoy buscando trabajo». Maurice
+     todavia no sabe que existe. Esta linea se borra el dia que diga que si. -->
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Maurice Valdés Bermúdez · Site Reliability Engineer">
+<meta property="og:description" content="Mantengo en pie los sistemas que no se pueden caer.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="tarjeta-social.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230D0D0D'/%3E%3Cpath d='M6 21 L12 11 L16 17 L20 9 L26 21' fill='none' stroke='%23F4F2EF' stroke-width='2.4' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   Maurice Valdés Bermúdez · sitio profesional
+
+   REFERENCIA MEDIDA, NO RECORDADA. Se abrió cosmos.so con un navegador de
+   verdad y se le sacaron las variables CSS, las fuentes y los tamaños:
+
+     fondo        #fff / #fcfbfa / #f2f1f0   (papel cálido, no blanco puro)
+     tinta        #0d0d0d
+     grises       cálidos: #6e6a69, #9a9796  (sesgados a tierra, no fríos)
+     tipografía   UNA sola grotesca, pesos 350–700
+     tracking     −2.88px sobre 72px  =  −0.04em en display, −0.02em en texto
+     interlineado 1.277 en prosa — muy cerrado
+     radios       999px en píldoras; 8 / 12 / 16 / 24 px en fichas
+     y el gancho  una NUBE DE FICHAS a la deriva en 3D con desenfoque de
+                  profundidad detrás del titular
+
+   Ese último punto es lo que se roba, y resuelve el problema de fondo: ellos
+   llenan las fichas con fotografía de moda; Maurice no tiene fotos porque el
+   trabajo de un SRE sólo se ve cuando falla. Aquí las fichas llevan SU
+   material — 8 PB, Pemex, AHV, CEH, los husos horarios — así que la nube no
+   es decoración: es su carrera flotando.
+
+   REGLA QUE NO SE ROMPE: nunca se anima `opacity` sobre texto. Todo lo que
+   es texto entra con MÁSCARA a opacidad plena. A media transición un texto
+   translúcido no cumple contraste, y además sale en blanco en las capturas.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --papel:#F4F2EF;
+  --papel-2:#FCFBFA;
+  --papel-3:#EAE7E3;
+  --tinta:#0D0D0D;
+  /* Los grises de la referencia son #6E6A69 y #9A9796 y NO se copian tal cual:
+     CALCULADO sobre #F4F2EF dan 4.78:1 y 2.60:1 — el segundo reprueba AA de
+     calle y el primero reprueba sobre #EAE7E3 (4.34:1). Allá son etiquetas
+     decorativas junto a fotos; aquí llevan contenido (lugares, duraciones,
+     instituciones), así que se oscurecen manteniendo el sesgo cálido:
+     7.00:1 y 5.25:1 sobre papel, 6.34:1 y 4.76:1 sobre el hueso. */
+  --tinta-2:#56514F;
+  --tinta-3:#6B6361;
+  --filo:#DEDBD7;
+  --ocre:#8F4F12;
+  --alarma:#A8301F; --alarma-2:#C4553F;
+  --verde:#2F6B4F;
+
+  --t1:#CFA978; --t2:#B07434; --t3:#8F4F12;
+
+  --medida:1320px;
+  --pad:24px;
+  --ease:cubic-bezier(.22,.9,.3,1);
+  --lento:cubic-bezier(.16,.84,.26,1);
+}
+@media (min-width:860px){:root{--pad:40px}}
+
+*{box-sizing:border-box}
+html{background:var(--papel);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--papel);color:var(--tinta);
+  font:400 17px/1.5 "Host Grotesk","Helvetica Neue",Arial,sans-serif;
+  letter-spacing:-.02em;                /* el tracking cerrado de la referencia */
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ocre);outline-offset:4px;border-radius:4px}
+.caso{width:100%;max-width:var(--medida);margin:0 auto;padding:0 var(--pad)}
+
+/* ── tipografía ─────────────────────────────────────────────────────────── */
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.042em;line-height:.96;text-wrap:balance}
+h2{font-size:clamp(40px,7.2vw,92px)}
+h3{font-size:clamp(23px,2.4vw,30px);letter-spacing:-.035em;line-height:1.08}
+p{margin:0}
+.prosa{line-height:1.277;color:var(--tinta-2)}
+.ceja{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tinta-3);margin:0 0 20px;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.ceja::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ocre)}
+
+/* ── revelados: máscara, nunca opacidad sobre texto ─────────────────────── */
+.ln{display:block;overflow:hidden;padding-bottom:.04em}
+.ln > *{display:block;transform:translateY(105%);will-change:transform}
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  .ln > *{transition:transform 1.1s var(--lento)}
+  .vis .ln > *,.ln.vis > *{transform:none}
+}
+@media (prefers-reduced-motion:reduce),(scripting:none){.ln > *{transform:none !important}}
+.up{transform:translateY(26px)}
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  .up{transition:transform .95s var(--lento)}
+  .vis .up,.up.vis{transform:none}
+}
+@media (prefers-reduced-motion:reduce),(scripting:none){.up{transform:none}}
+
+/* ── barra ──────────────────────────────────────────────────────────────── */
+.barra{position:fixed;top:0;left:0;right:0;z-index:70}
+.barra::before{
+  content:"";position:absolute;inset:0;background:rgba(244,242,239,.8);
+  border-bottom:1px solid transparent;opacity:0;transition:opacity .45s;
+}
+.barra[data-peg]::before{opacity:1;border-bottom-color:var(--filo)}
+@supports (backdrop-filter:blur(2px)){.barra[data-peg]::before{backdrop-filter:blur(16px)}}
+.barra .caso{position:relative;display:flex;align-items:center;gap:20px;height:64px}
+.marca{display:flex;align-items:center;gap:11px;flex:0 0 auto;font-weight:700;
+  letter-spacing:-.04em;font-size:16px}
+/* ── EL MONOGRAMA ───────────────────────────────────────────────────────
+   No es un icono de catálogo: es su oficio dibujado. La «M» está construida
+   con el trazo de una gráfica de disponibilidad —sube, cae, se recupera,
+   sube— y por eso la misma forma sirve de logotipo y de síntoma: cuando se
+   provoca una caída, el trazo se parte y se pone en alarma, y al resolverse
+   se vuelve a dibujar solo. La identidad y el estado son la misma línea. */
+.marca i{width:30px;height:30px;border-radius:9px;background:var(--tinta);display:grid;
+  place-items:center;flex:0 0 auto;overflow:hidden;position:relative;
+  transition:background .45s var(--ease)}
+.marca i svg{display:block;overflow:visible}
+.marca i path{
+  stroke:var(--papel);stroke-width:3;fill:none;stroke-linejoin:round;stroke-linecap:round;
+  stroke-dasharray:var(--lg,64);stroke-dashoffset:var(--lg,64);
+}
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  .marca i path{animation:trazar 1.25s var(--lento) .25s forwards}
+  .marca:hover i path{animation:trazar .7s var(--lento) forwards}
+}
+@media (prefers-reduced-motion:reduce),(scripting:none){
+  .marca i path{stroke-dashoffset:0}
+}
+@keyframes trazar{from{stroke-dashoffset:var(--lg,64)}to{stroke-dashoffset:0}}
+/* Estado de incidente: el mismo trazo, roto y en alarma. */
+.marca i[data-mal]{background:var(--alarma)}
+.marca i[data-mal] path{stroke:#FFF1EE;stroke-dasharray:7 5;stroke-dashoffset:0;animation:none}
+.barra nav{display:none;margin-left:auto;gap:4px}
+@media (min-width:1040px){.barra nav{display:flex}}
+.barra nav a{padding:9px 15px;border-radius:999px;font-size:14px;font-weight:500;
+  color:var(--tinta-2);transition:background .3s,color .3s}
+.barra nav a:hover{background:var(--papel-3);color:var(--tinta)}
+.reloj{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;
+  color:var(--tinta-2);white-space:nowrap}
+@media (min-width:1040px){.reloj{margin-left:14px}}
+.pt{width:7px;height:7px;border-radius:50%;background:var(--verde);flex:0 0 auto}
+/* El reloj se retira bajo 600px. MEDIDO: a 320px la marca (160px, sin partir),
+   el reloj (90px) y el botón de idioma (44px) suman 334 sobre 272 de ancho
+   útil, y el que se salía de la pantalla era el botón de idioma — o sea que en
+   un teléfono pequeño no había forma de cambiar a inglés. */
+@media (max-width:600px){.reloj{display:none}.barra nav{display:none}}
+@media (prefers-reduced-motion:no-preference){.pt{animation:lat 2.6s ease-out infinite}}
+@keyframes lat{0%{box-shadow:0 0 0 0 rgba(47,107,79,.45)}70%{box-shadow:0 0 0 8px rgba(47,107,79,0)}100%{box-shadow:0 0 0 0 rgba(47,107,79,0)}}
+.idi{flex:0 0 auto;height:38px;padding:0 16px;border-radius:999px;cursor:pointer;
+  background:var(--tinta);color:var(--papel);border:0;font-family:inherit;
+  font-size:13px;font-weight:600;letter-spacing:-.02em;
+  transition:background .3s}
+
+/* ── píldoras ───────────────────────────────────────────────────────────── */
+.b{display:inline-flex;align-items:center;gap:9px;height:54px;padding:0 28px;
+  border-radius:999px;font-size:15.5px;font-weight:600;letter-spacing:-.025em;
+  border:1px solid transparent;will-change:transform;
+  transition:background .3s,color .3s,border-color .3s}
+.b-ll{background:var(--tinta);color:var(--papel)}
+.b-ll:hover{background:var(--ocre)}
+.b-hu{border-color:var(--filo);color:var(--tinta);background:var(--papel-2)}
+.b-hu:hover{border-color:var(--tinta)}
+.b svg{transition:transform .4s var(--ease)}
+.b:hover svg{transform:translateX(4px)}
+
+/* ══ PORTADA: la nube de fichas ═════════════════════════════════════════ */
+.portada{position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:center;padding:96px 0 32px;overflow:hidden}
+/* Por debajo de 1040px la nube no se pinta. No es una rendición: a esa
+   anchura los módulos ocupan el ancho entero y a la nube le quedaban una o
+   dos fichas sueltas, que no se leen como una nube sino como restos. En
+   teléfono mandan los bloques y el nombre, que es composición suficiente. */
+.nube{position:absolute;inset:0;z-index:0;pointer-events:none;perspective:1100px}
+@media (max-width:1039px){.nube{display:none}}
+/* Las fichas sí reciben el puntero —la capa no—, para que señalar una
+   encienda las de su mismo trabajo. Medido: ninguna ficha se superpone al
+   texto ni a los botones, así que no le roban el clic a nada. */
+.fi{pointer-events:auto}
+.fi{
+  position:absolute;top:50%;left:50%;will-change:transform;
+  border-radius:16px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  padding:12px 18px;white-space:nowrap;
+  font-size:15px;font-weight:600;letter-spacing:-.03em;
+  background:var(--papel-2);border:1px solid var(--filo);color:var(--tinta);
+  box-shadow:0 10px 30px -18px rgba(20,14,8,.4);
+}
+.fi.tinta{background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+.fi.ocre{background:var(--ocre);color:#FBF0E2;border-color:var(--ocre)}
+.fi.hueso{background:var(--papel-3);border-color:transparent;color:var(--tinta-2)}
+.fi.num{font-family:"JetBrains Mono",monospace;font-size:18px;letter-spacing:-.02em}
+.fi.foto{padding:0;width:124px;height:124px;border-radius:22px}
+@media (max-width:899px){
+  .fi{padding:9px 13px;font-size:13px;border-radius:13px}
+  .fi.num{font-size:15px}
+  .fi.foto{width:94px;height:94px;border-radius:18px}
+}
+.fi.foto img{width:100%;height:100%;object-fit:cover}
+
+/* El contenedor de la portada va por encima de la nube para que el nombre
+   nunca quede tapado, pero entonces se comía el puntero en TODA su caja y
+   las fichas no se podían señalar. Deja pasar el puntero por sus huecos y lo
+   recupera sólo donde hay algo: el texto sigue siendo seleccionable y las
+   fichas vuelven a ser alcanzables.
+
+   El puntero se recupera en las CAJAS DE TEXTO EN LÍNEA, no en los bloques
+   que las contienen: un <p> centrado ocupa el ancho entero aunque su texto
+   mida la mitad, y con eso bastaba para que una ficha a 400px del centro
+   siguiera sin recibir nada. Medido: la fila de botones era la que se la
+   comía. Así el texto sigue seleccionable y la nube es alcanzable. */
+.portada .caso,.portada .centro,.portada .plano,.portada .ceja,.portada h1,
+.portada .tesis,.portada .acciones,.portada h1 .ln,.portada .mods{
+  position:relative;z-index:1;pointer-events:none}
+.portada .ceja > span,.portada h1 .ln > *,.portada .tesis > span,
+.portada .acciones > *,.portada .mod{pointer-events:auto}
+/* ── REJILLA MODULAR, NO COLUMNA CENTRADA ───────────────────────────────
+   El centrado es el reflejo de todo el mundo: título al medio, párrafo al
+   medio, botones al medio. Aquí el nombre se alinea a la izquierda y pesa
+   siete columnas, y las cifras se vuelven BLOQUES DE COLOR a la derecha, con
+   el retrato como uno más. Es composición de cartel: tipografía grande
+   contra módulos sólidos, que es lo que se encuentra en cualquier tablero
+   decente de diseño gráfico y lo que no se encuentra en una página de
+   currículum. */
+.centro{display:grid;gap:clamp(26px,4vw,52px);align-items:center}
+@media (min-width:1040px){
+  .centro{grid-template-columns:minmax(0,7fr) minmax(300px,4.2fr)}
+}
+.plano{min-width:0}
+h1{font-size:clamp(46px,8.6vw,118px);letter-spacing:-.052em;line-height:.88;
+  margin:0 0 22px}
+h1 em{font-style:italic;font-weight:400}
+.tesis{font-size:clamp(18px,2.1vw,24px);font-weight:500;letter-spacing:-.03em;
+  line-height:1.22;margin:0 0 28px;max-width:21ch;color:var(--tinta)}
+.acciones{display:flex;flex-wrap:wrap;gap:11px}
+
+/* ── los módulos ──────────────────────────────────────────────────────── */
+.mods{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;min-width:0}
+.mod{
+  position:relative;border-radius:20px;padding:18px 18px 16px;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;min-height:116px;
+  /* Entra con un barrido desde su propio borde: la caja se descubre, el
+     texto nunca cambia de opacidad. */
+  clip-path:inset(0 100% 0 0 round 20px);
+}
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  .mod{transition:clip-path 1s var(--lento),transform .5s var(--ease)}
+}
+@media (prefers-reduced-motion:reduce),(scripting:none){
+  .mod{clip-path:none}
+}
+.vis .mod{clip-path:inset(0 0 0 0 round 20px)}
+.mod:nth-child(1){transition-delay:.18s}
+.mod:nth-child(2){transition-delay:.30s}
+.mod:nth-child(3){transition-delay:.42s}
+.mod:nth-child(4){transition-delay:.54s}
+.mod:nth-child(5){transition-delay:.66s}
+.mod .n{font-size:clamp(26px,3vw,38px);font-weight:700;letter-spacing:-.045em;
+  line-height:1;font-variant-numeric:tabular-nums}
+.mod .q{font-size:12.5px;line-height:1.25;margin-top:7px;letter-spacing:-.01em}
+.mod.tinta{background:var(--tinta);color:var(--papel)}
+.mod.tinta .q{color:#C9C6C3}
+.mod.ocre{background:var(--ocre);color:#FBF0E2}
+.mod.ocre .q{color:#EBD7BF}
+.mod.hueso{background:var(--papel-3);color:var(--tinta)}
+.mod.hueso .q{color:var(--tinta-2)}
+.mod.linea{background:var(--papel-2);color:var(--tinta);
+  box-shadow:inset 0 0 0 1px var(--filo)}
+.mod.linea .q{color:var(--tinta-2)}
+/* El retrato va CUADRADO y en una sola celda. En una banda de 16:7 el
+   recorte le cortaba la frente y la barbilla: la foto de origen es un
+   recorte cuadrado de su cara, y meterla en un buzón la deforma. Cuadrada
+   cae en su encuadre natural y además equilibra la rejilla. */
+.mod.cara{min-height:0;padding:0;aspect-ratio:1/1}
+.mod.cara img{width:100%;height:100%;object-fit:cover;object-position:50% 34%}
+.mod.ancho{grid-column:span 2;min-height:0}
+.mod.ancho .n{display:inline-block;margin-right:12px;vertical-align:-2px}
+.mod.ancho .q{display:inline-block;margin-top:0}
+
+/* ── marquesina ─────────────────────────────────────────────────────────── */
+/* El fondo opaco no es decorativo: la cinta va encima de la nube y sin fondo
+   las fichas se veían A TRAVÉS de ella, cortadas por el filete. Con fondo, la
+   ficha que pasa por detrás se oculta y eso sí se lee como profundidad. */
+.marq{position:relative;z-index:1;background:var(--papel);
+  overflow:hidden;margin-top:clamp(40px,6vw,72px);
+  border-top:1px solid var(--filo);border-bottom:1px solid var(--filo);padding:16px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.marq-p{display:flex;width:max-content;will-change:transform}
+/* Cuando el JS la mueve, la animación de CSS estorba: las dos escribirían
+   sobre el mismo transform y ganaría la que repintara al final. */
+.marq-js .marq-p{animation:none !important}
+@media (prefers-reduced-motion:no-preference){.marq-p{animation:correr 46s linear infinite}}
+@keyframes correr{to{transform:translateX(-50%)}}
+.marq:hover .marq-p{animation-play-state:paused}
+.marq-p span{display:inline-flex;align-items:center;gap:22px;padding:0 22px;
+  font-size:15px;font-weight:500;color:var(--tinta-2);letter-spacing:-.025em;white-space:nowrap}
+.marq-p span::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--ocre);opacity:.55}
+
+/* ── secciones ──────────────────────────────────────────────────────────── */
+.sec{padding:clamp(84px,11vw,160px) 0;position:relative}
+/* La regla entre secciones se DIBUJA, no aparece. Es un pseudo-elemento y
+   no el borde, porque un borde no se puede escalar sin escalar la caja. */
+.sec + .sec{position:relative}
+.sec + .sec::before{
+  content:"";position:absolute;top:0;left:var(--pad);right:var(--pad);height:1px;
+  background:var(--filo);transform:scaleX(0);transform-origin:0 50%;
+}
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  .sec + .sec::before{transition:transform 1.1s var(--lento)}
+}
+.sec.vis + .sec::before,.sec + .sec.vis::before{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce),(scripting:none){
+  .sec + .sec::before{transform:none}
+}
+.sec-cab{margin-bottom:clamp(44px,6vw,76px);max-width:900px}
+.sec-cab .prosa{margin-top:22px;max-width:56ch;font-size:18px}
+
+/* ── cifras ─────────────────────────────────────────────────────────────── */
+.cifras{display:grid;grid-template-columns:1fr;gap:14px}
+@media (min-width:560px){.cifras{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media (min-width:1040px){.cifras{grid-template-columns:repeat(4,1fr);gap:18px}}
+.cf{position:relative;padding:30px 26px 28px;border-radius:24px;overflow:hidden;
+  background:var(--papel-2);border:1px solid var(--filo);
+  transition:transform .55s var(--ease),background .45s,border-color .45s}
+.cf:hover{transform:translateY(-8px);background:var(--tinta);border-color:var(--tinta)}
+.cf:hover .n,.cf:hover .q{color:var(--papel)}
+.cf:hover .d{color:var(--tinta-3)}
+@media (prefers-reduced-motion:reduce){.cf:hover{transform:none}}
+.cf .n{font-size:clamp(54px,7vw,82px);font-weight:700;letter-spacing:-.055em;line-height:.88;
+  color:var(--ocre);font-variant-numeric:tabular-nums;transition:color .45s}
+.cf .n sup{font-size:.32em;vertical-align:super;margin-left:3px;letter-spacing:-.02em}
+.cf .q{margin-top:18px;font-size:15.5px;line-height:1.25;font-weight:500;transition:color .45s}
+.cf .d{margin-top:9px;font-family:"JetBrains Mono",monospace;font-size:11px;
+  color:var(--tinta-3);transition:color .45s}
+
+/* ── trayectoria ────────────────────────────────────────────────────────── */
+.bv{display:flex;gap:4px;height:86px;border-radius:18px;overflow:hidden}
+.tr{position:relative;display:flex;align-items:flex-end;padding:15px 18px;min-width:0;
+  overflow:hidden;border-radius:14px;transform:scaleX(0);transform-origin:0 50%;
+  transition:transform 1.05s var(--lento),filter .3s}
+@media (prefers-reduced-motion:reduce),(scripting:none){.tr{transform:none !important}}
+.vis .tr{transform:scaleX(1)}
+.tr:hover{filter:brightness(.94)}
+.tr .et{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+/* La etiqueta la decide el tramo. Medido sobre cada fondo: tinta oscura sobre
+   #CFA978 y #B07434 pasa; sobre #8F4F12 reprueba y va en claro. */
+.tr[data-claro] .et{color:#FBF2E6}
+.tr:not([data-claro]) .et{color:#1A1206}
+/* Sin etiqueta el padding no sirve, y sí estorba: con box-sizing:border-box un
+   tramo no puede ser más angosto que sus 36px de padding, así que el tramo de
+   bSide (10% del total) desbordaba la barra 11px a 320px de ancho. */
+@media (max-width:720px){.tr .et{display:none}.tr{padding:0}.bv{height:56px}}
+.eje{position:relative;height:30px;margin-top:14px;border-top:1px solid var(--filo)}
+.tic{position:absolute;top:0;transform:translateX(-50%);padding-top:9px}
+.tic::before{content:"";position:absolute;top:0;left:50%;width:1px;height:6px;background:var(--filo)}
+.tic .m{display:block;overflow:hidden;padding-bottom:.08em}
+.tic .m span{display:block;font-family:"JetBrains Mono",monospace;font-size:11px;
+  color:var(--tinta-3);font-variant-numeric:tabular-nums;transform:translateY(130%)}
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  .tic .m span{transition:transform .75s var(--lento)}
+  .tic::before{transform-origin:50% 0;transform:scaleY(0);transition:transform .5s var(--lento)}
+  .vis .tic .m span{transform:none}
+  .vis .tic::before{transform:scaleY(1)}
+}
+@media (prefers-reduced-motion:reduce),(scripting:none){
+  .tic .m span{transform:none}
+}
+/* La marca de HOY, al final de la barra: late despacio porque esa parte de la
+   línea de tiempo todavía está pasando. */
+.hoy{position:absolute;right:0;top:0;padding-top:9px;
+  display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+.hoy i{margin-right:0}
+.hoy i{width:7px;height:7px;border-radius:50%;background:var(--verde);display:block}
+@media (prefers-reduced-motion:no-preference){.hoy i{animation:lat 2.9s ease-out infinite}}
+.hoy span{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tinta-3)}
+.ley{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:26px;font-size:14px;color:var(--tinta-2)}
+.ley span{display:flex;align-items:center;gap:10px}
+/* El filete no es adorno: #CFA978 sobre papel da 1.9:1 y sin borde el cuadrito
+   más claro de la leyenda se pierde en el fondo. */
+.ley i{width:13px;height:13px;border-radius:4px;flex:0 0 auto;
+  box-shadow:inset 0 0 0 1px rgba(13,13,13,.22)}
+
+/* ── ESCENA FIJA: la trayectoria se RECORRE con el scroll ───────────────
+   El scroll no mueve la página aquí: mueve un cabezal por doce años de
+   carrera, y el panel de la derecha cambia al puesto que esté debajo. No es
+   un «aparece al bajar» —que es lo que hace todo el mundo—, es el scroll
+   convertido en el eje del tiempo, que es la única metáfora que este
+   contenido pedía.
+
+   Degrada bien: sin JS o con movimiento reducido la sección vuelve a ser
+   altura normal, el cabezal se queda al final y los tres puestos se leen en
+   la leyenda y en el historial. */
+.escena{position:relative}
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  .escena{height:320vh}
+  .escena .pega{position:sticky;top:0;height:100vh;display:flex;align-items:center}
+}
+.escena .pega{width:100%}
+.cabezal{position:absolute;top:-10px;bottom:-10px;width:2px;background:var(--tinta);
+  border-radius:2px;pointer-events:none;z-index:2;transform:translateX(-1px)}
+.cabezal::after{content:"";position:absolute;top:-5px;left:50%;width:9px;height:9px;
+  border-radius:50%;background:var(--tinta);transform:translateX(-50%)}
+.bv-caja{position:relative}
+.lector{display:grid;gap:18px;margin-top:34px;align-items:start}
+@media (min-width:860px){.lector{grid-template-columns:150px minmax(0,1fr)}}
+.lector .fch{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--tinta-2);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.lector .cual{min-width:0}
+.lector h3{font-size:clamp(22px,3.1vw,38px);letter-spacing:-.04em;line-height:1.02;
+  margin:0 0 6px}
+.lector .emp2{font-size:15px;font-weight:600;color:var(--ocre);letter-spacing:-.025em;
+  margin:0 0 10px}
+.lector .qq2{color:var(--tinta-2);max-width:54ch;margin:0;font-size:16px;line-height:1.3}
+/* El texto del lector cambia con máscara, nunca con opacidad. */
+.lector .msk{display:block;overflow:hidden}
+.lector .msk > *{display:block}
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  .lector .msk > *{transition:transform .45s var(--ease)}
+  .lector[data-cambia] .msk > *{transform:translateY(-110%)}
+}
+
+/* ── dominios ───────────────────────────────────────────────────────────── */
+.doms{display:grid;gap:16px}
+@media (min-width:1000px){.doms{grid-template-columns:repeat(3,1fr);gap:18px}}
+.dm{position:relative;padding:38px 30px 40px;border-radius:26px;overflow:hidden;
+  background:var(--papel-2);border:1px solid var(--filo);
+  transition:transform .55s var(--ease),border-color .45s}
+.dm:hover{transform:translateY(-10px);border-color:var(--tinta-3)}
+@media (prefers-reduced-motion:reduce){.dm:hover{transform:none}}
+.dm-n{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ocre);
+  margin-bottom:22px;letter-spacing:.1em}
+.dm h3{margin-bottom:12px}
+.dm .qq{color:var(--tinta-2);margin-bottom:26px;font-size:16px;line-height:1.277}
+.dm ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.dm li{padding:11px 0;font-size:15px;line-height:1.3;border-top:1px solid var(--filo);
+  display:flex;gap:12px;align-items:flex-start}
+.dm li::before{content:"";flex:0 0 auto;width:5px;height:5px;border-radius:50%;
+  background:var(--ocre);margin-top:.45em;transform:scale(0);
+  transition:transform .45s var(--ease)}
+.vis .dm li::before{transform:scale(1)}
+.dm li:nth-child(1)::before{transition-delay:.30s} .dm li:nth-child(2)::before{transition-delay:.37s}
+.dm li:nth-child(3)::before{transition-delay:.44s} .dm li:nth-child(4)::before{transition-delay:.51s}
+.dm li:nth-child(5)::before{transition-delay:.58s} .dm li:nth-child(6)::before{transition-delay:.65s}
+
+/* ── historial ──────────────────────────────────────────────────────────── */
+.pu{padding:46px 0;border-top:1px solid var(--filo)}
+.pu:first-of-type{border-top:0;padding-top:0}
+@media (min-width:980px){
+  .pu{display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;align-items:start}
+}
+.pu-meta{margin-bottom:20px}
+@media (min-width:980px){.pu-meta{margin-bottom:0;position:sticky;top:96px}}
+.per{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--tinta);
+  font-variant-numeric:tabular-nums}
+.dur,.lug{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--tinta-3);margin-top:6px}
+.pu h3{margin-bottom:8px}
+.emp{font-size:15px;font-weight:600;color:var(--ocre);margin-bottom:24px;letter-spacing:-.025em}
+.pu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+@media (min-width:1160px){.pu ul{display:block;columns:2;column-gap:44px}}
+.pu li{padding:12px 0;border-top:1px solid var(--filo);font-size:15.5px;line-height:1.3;
+  color:var(--tinta-2);break-inside:avoid}
+.pu li b{color:var(--tinta);font-weight:600}
+
+/* ── credenciales ───────────────────────────────────────────────────────── */
+.dob{display:grid;gap:56px}
+@media (min-width:1000px){.dob{grid-template-columns:1fr 1fr;gap:72px}}
+.rot{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tinta-3);margin-bottom:26px;padding-bottom:14px;
+  border-bottom:1px solid var(--filo)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.ch{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:999px;
+  background:var(--papel-2);border:1px solid var(--filo);font-size:14.5px;font-weight:500;
+  transition:transform .4s var(--ease),background .35s,color .35s,border-color .35s}
+.ch:hover{transform:translateY(-4px);background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+.ch:hover small{color:var(--tinta-3)}
+@media (prefers-reduced-motion:reduce){.ch:hover{transform:none}}
+.ch svg{flex:0 0 auto;color:var(--verde)}
+.ch small{color:var(--tinta-3);font-size:12px;font-weight:400;transition:color .35s}
+.estu{display:flex;flex-direction:column}
+.es{display:flex;gap:22px;align-items:baseline;padding:20px 0;border-top:1px solid var(--filo)}
+.es:first-child{border-top:0;padding-top:0}
+.es .an{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--tinta-3);
+  flex:0 0 86px;font-variant-numeric:tabular-nums}
+.es p{font-size:17px;line-height:1.25;font-weight:500}
+.es p small{display:block;color:var(--tinta-3);font-size:13.5px;margin-top:6px;font-weight:400;line-height:1.35}
+
+/* ── contacto ───────────────────────────────────────────────────────────── */
+.cont{padding:clamp(96px,13vw,180px) 0 0;border-top:1px solid var(--filo)}
+.cont h2{max-width:13ch}
+.vias{display:grid;gap:14px;margin-top:52px}
+@media (min-width:860px){.vias{grid-template-columns:repeat(3,1fr);gap:16px}}
+.via{position:relative;display:block;padding:30px 28px 34px;border-radius:24px;overflow:hidden;
+  background:var(--papel-2);border:1px solid var(--filo);
+  transition:transform .5s var(--ease),background .4s,border-color .4s}
+a.via:hover{transform:translateY(-8px);background:var(--tinta);border-color:var(--tinta)}
+a.via:hover .vk{color:var(--tinta-3)} a.via:hover .vv{color:var(--papel)}
+a.via:hover .fl{color:var(--papel);transform:translate(5px,-5px)}
+@media (prefers-reduced-motion:reduce){a.via:hover{transform:none}}
+.vk{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tinta-3);margin-bottom:14px;transition:color .4s}
+.vv{font-size:18px;font-weight:600;letter-spacing:-.03em;word-break:break-word;transition:color .4s}
+.fl{position:absolute;right:24px;bottom:26px;color:var(--tinta-3);
+  transition:transform .45s var(--ease),color .4s}
+
+footer{margin-top:clamp(84px,10vw,140px);border-top:1px solid var(--filo);padding:30px 0 44px}
+.pie{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;font-size:13.5px;color:var(--tinta-3)}
+.pie .sp{margin-left:auto}
+
+/* ── impresión ──────────────────────────────────────────────────────────── */
+
+/* ══ MODO INCIDENTE ═════════════════════════════════════════════════════
+   El gancho. La portada dice «mantengo en pie los sistemas que no se pueden
+   caer»; esto lo DEMUESTRA en vez de afirmarlo: se tira la página y se la ve
+   recuperarse sola, por fases y con su telemetría. Es su oficio, que
+   normalmente sólo se nota cuando falla.
+
+   Va abajo y no arriba a propósito: una cinta fija en la parte superior
+   chocaría con la barra, y abajo se lee como lo que es, una consola de
+   operación. Nada de esto anima `opacity` sobre texto: la cinta entra
+   desplazándose y su texto está siempre a opacidad plena. */
+.inc{
+  display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 20px;
+  border-radius:999px;border:1px dashed #83878E;background:transparent;
+  color:var(--tinta-2);cursor:pointer;
+  font:500 14px/1 "Host Grotesk","Helvetica Neue",Arial,sans-serif;letter-spacing:-.025em;
+  transition:border-color .3s,color .3s,transform .3s var(--ease);
+}
+.inc:hover{border-color:var(--alarma);color:var(--alarma)}
+.inc i{width:7px;height:7px;border-radius:50%;background:var(--verde);flex:0 0 auto;
+  transition:background .3s}
+.inc:hover i{background:var(--alarma)}
+.inc[disabled]{border-style:solid;border-color:var(--filo);color:var(--tinta-3);cursor:default}
+.inc[disabled] i{background:var(--tinta-3)}
+
+.cinta{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;
+  transform:translateY(110%);transition:transform .52s var(--lento);
+  background:var(--alarma);color:#FFF1EE;
+  box-shadow:0 -14px 40px -24px rgba(20,10,6,.5);
+}
+.cinta[data-on]{transform:translateY(0)}
+.cinta[data-fase="mitigando"]{background:#8A5A12}
+.cinta[data-fase="resuelto"]{background:#2F6B4F}
+.cinta .caso{display:flex;align-items:center;gap:16px;min-height:46px;
+  font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.04em}
+.cinta b{font-weight:700;text-transform:uppercase;letter-spacing:.15em;font-size:10.5px;
+  flex:0 0 auto}
+.cinta .pul{width:8px;height:8px;border-radius:50%;background:#FFF1EE;flex:0 0 auto}
+.cinta .dsc{color:#FFE3DC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cinta .graf{margin-left:auto;flex:0 0 auto}
+.cinta .graf path{fill:none;stroke:#FFF1EE;stroke-width:1.4;stroke-linejoin:round}
+.cinta .num{flex:0 0 auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:860px){.cinta .dsc{display:none}}
+@media (max-width:560px){.cinta .graf{display:none}.cinta .caso{gap:11px;font-size:11px}}
+
+/* La página «se cae»: desplazamiento horizontal de las bandas del titular,
+   que NO toca opacidad y por tanto nunca baja el contraste. */
+.sacude{animation:sacudir .42s steps(2,end) 2}
+@keyframes sacudir{
+  0%{transform:translate3d(0,0,0)} 18%{transform:translate3d(-5px,0,0)}
+  36%{transform:translate3d(4px,0,0)} 54%{transform:translate3d(-2px,0,0)}
+  100%{transform:translate3d(0,0,0)}
+}
+.caido .fi{transition:filter .5s}
+.barra .pt.mal{background:var(--alarma)}
+
+/* ══ ENLACE CRUZADO: historial ↔ trayectoria ↔ nube ═════════════════════
+   Pasar por un puesto enfoca su tramo de la barra y adelanta SUS fichas en
+   la nube. No es un adorno: enseña de qué trabajo salió cada pieza del
+   oficio, que es algo que un currículum nunca consigue decir. */
+.bv[data-foco] .tr:not([data-act]){filter:saturate(.18) brightness(1.08)}
+.bv .tr[data-act]{box-shadow:inset 0 0 0 2px rgba(13,13,13,.28)}
+.pu{transition:border-color .4s}
+.pu > div:last-child{position:relative}
+.pu > div:last-child::before{
+  content:"";position:absolute;left:-18px;top:2px;bottom:2px;width:2px;border-radius:2px;
+  background:var(--marca-emp,transparent);transform:scaleY(0);transform-origin:50% 0;
+  transition:transform .5s var(--ease);
+}
+.pu[data-act] > div:last-child::before{transform:scaleY(1)}
+/* La barrita de la columna fija: cuánto de los doce años fue ESTE trabajo.
+   Existe porque la línea de tiempo completa está dos secciones más arriba y
+   no se ve desde aquí; sin esto, enfocar un puesto no enseñaba nada. */
+.mini{display:block;height:3px;margin-top:18px;background:var(--filo);
+  border-radius:3px;overflow:hidden}
+.mini i{display:block;height:100%;background:var(--marca-emp,var(--ocre));
+  transform:scaleX(0);transform-origin:0 50%;transition:transform .65s var(--ease)}
+.pu[data-act] .mini i{transform:scaleX(1)}
+@media (max-width:979px){.pu > div:last-child::before{left:-12px}}
+
+/* ══ CIFRAS QUE SE ASIENTAN ═════════════════════════════════════════════ */
+.cf .n{position:relative}
+.cf .osc{display:block;height:2px;margin-top:10px;border-radius:2px;background:var(--ocre);
+  transform:scaleX(1);transform-origin:0 50%}
+
+@media print{
+  .nube,.barra,.marq,.acciones,.cinta,.inc{display:none !important}
+  .ln > *,.up,.tr{transform:none !important}
+  body{background:#fff;font-size:11pt}
+  .portada{min-height:0;padding:0 0 18pt}
+  .sec{padding:16pt 0;border-top:1px solid #ddd}
+  .cf,.dm,.via,.ch{background:#fff;border-color:#ddd;break-inside:avoid}
+  .pu,.dm{page-break-inside:avoid}
+  a[href^="http"]::after,a[href^="mailto"]::after{content:" (" attr(href) ")";font-size:9pt;color:#777}
+}
+</style>
+</head>
+
+<body>
+
+<header class="barra" id="barra">
+  <div class="caso">
+    <a class="marca" href="#">
+      <i id="marcaM"><svg width="19" height="19" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M4 23 L9.5 9 L16 19 L22.5 7 L28 23"/></svg></i>
+      Maurice&nbsp;V.&nbsp;Bermúdez
+    </a>
+    <nav>
+      <a href="#dominios" data-i18n="nav1">Qué resuelvo</a>
+      <a href="#trayectoria" data-i18n="nav2">Trayectoria</a>
+      <a href="#credenciales" data-i18n="nav3">Credenciales</a>
+      <a href="#contacto" data-i18n="nav4">Contacto</a>
+    </nav>
+    <p class="reloj"><span class="pt" aria-hidden="true"></span><span>CDMX</span>
+      <span id="rj" style="font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace">—:—</span></p>
+    <button class="idi" id="idi" type="button" aria-label="Read this page in English">EN</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══ PORTADA ═══════════════════════════════════════════════════════ -->
+  <section class="portada">
+    <div class="nube" id="nube" aria-hidden="true"></div>
+    <div class="caso">
+      <div class="centro">
+       <div class="plano">
+        <p class="ceja"><span data-i18n="ceja">Site Reliability Engineering · Nube · Seguridad</span></p>
+        <h1>
+          <span class="ln"><span data-i18n="h1a">Maurice Valdés</span></span>
+          <span class="ln"><em data-i18n="h1b">Bermúdez</em></span>
+        </h1>
+        <p class="tesis ln"><span data-i18n="tesis">Mantengo en pie los sistemas que no se pueden caer.</span></p>
+        <div class="acciones up">
+          <a class="b b-ll" href="#contacto"><span data-i18n="cta1">Hablemos</span>
+            <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <!-- Abre el PDF en pestaña: funciona igual en los tres sitios donde
+               puede vivir esto, y un reclutador prefiere ojearlo antes. -->
+          <a class="b b-hu" id="cv" href="cv-maurice-valdes-bermudez-es.pdf" target="_blank" rel="noopener">
+            <span data-i18n="cta2">Ver el CV</span></a>
+          <!-- No es un truco: es la tesis de la portada, demostrada. -->
+          <button class="inc" id="inc" type="button"><i aria-hidden="true"></i><span
+            data-i18n="inc">Provocar una caída</span></button>
+        </div>
+       </div>
+
+       <!-- Los módulos: las cuatro cifras como bloques sólidos, y su cara
+            como uno más. Es la parte de la composición que hace que esto
+            parezca un cartel y no una plantilla de currículum. -->
+       <aside class="mods" aria-label="Cifras">
+         <div class="mod tinta"><p class="n"><span class="cu" data-h="20" id="n-anios">20</span></p>
+           <p class="q" data-i18n="m1">años en infraestructura crítica</p></div>
+         <div class="mod ocre"><p class="n">8<span style="font-size:.5em;margin-left:2px">PB</span></p>
+           <p class="q" data-i18n="m2">migrados a Azure</p></div>
+         <div class="mod cara"><img src="retrato.webp" width="520" height="520"
+           alt="Maurice Valdés Bermúdez" fetchpriority="high"></div>
+         <div class="mod hueso"><p class="n">+<span class="cu" data-h="38">38</span></p>
+           <p class="q" data-i18n="m3">proyectos de nube</p></div>
+         <div class="mod linea ancho"><p class="n"><span class="cu" data-h="4">4</span></p>
+           <p class="q" data-i18n="m4">regiones de soporte, en inglés</p></div>
+       </aside>
+      </div>
+    </div>
+
+    <div class="marq" aria-hidden="true"><div class="marq-p" id="marq"></div></div>
+  </section>
+
+  <!-- ══ TRAYECTORIA ═══════════════════════════════════════════════════ -->
+  <section class="sec" id="trayectoria">
+    <div class="caso">
+      <div class="sec-cab">
+        <p class="ceja"><span data-i18n="cejaT">Disponibilidad</span></p>
+        <h2><span class="ln"><span data-i18n="tT1">Primero romperlo.</span></span>
+            <span class="ln"><span data-i18n="tT2">Después construirlo.</span></span>
+            <span class="ln"><em data-i18n="tT3">Hoy sostenerlo.</em></span></h2>
+        <p class="prosa up" data-i18n="tSub">Tres casas en doce años, cada una más cerca del problema que la anterior. La barra sale de las fechas reales: no hay un solo mes vacío entre una y otra.</p>
+      </div>
+      <div class="escena" id="escena">
+        <div class="pega">
+          <div style="width:100%">
+            <div class="bv-caja">
+              <div class="bv" id="bv" role="img" aria-label="Línea de tiempo laboral de diciembre de 2013 a hoy, sin interrupciones"></div>
+              <div class="cabezal" id="cabezal" style="left:100%" aria-hidden="true"></div>
+            </div>
+            <div class="eje" id="eje"></div>
+            <div class="ley">
+              <span><i style="background:var(--t1)"></i>Grupo Elektra</span>
+              <span><i style="background:var(--t2)"></i>bSide</span>
+              <span><i style="background:var(--t3)"></i>Nutanix</span>
+            </div>
+            <div class="lector" id="lector">
+              <p class="fch msk"><span id="l-fch">—</span></p>
+              <div class="cual">
+                <h3 class="msk"><span id="l-pst">—</span></h3>
+                <p class="emp2 msk"><span id="l-emp">—</span></p>
+                <p class="qq2 msk"><span id="l-qq">—</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUÉ RESUELVO ══════════════════════════════════════════════════ -->
+  <section class="sec" id="dominios">
+    <div class="caso">
+      <div class="sec-cab">
+        <p class="ceja"><span data-i18n="cejaD">Qué resuelvo</span></p>
+        <h2><span class="ln"><span data-i18n="dT1">Tres oficios que</span></span>
+            <span class="ln"><em data-i18n="dT2">se necesitan entre sí.</em></span></h2>
+        <p class="prosa up" data-i18n="dSub">No son tres etapas separadas de un currículum: son las tres cosas que hay que saber a la vez para que un sistema crítico aguante un mal día.</p>
+      </div>
+      <div class="doms">
+        <article class="dm"><p class="dm-n">01</p>
+          <h3 data-i18n="d1t">Confiabilidad</h3>
+          <p class="qq" data-i18n="d1q">Que el servicio siga en pie cuando algo ya falló.</p>
+          <ul>
+            <li data-i18n="d1a">Diagnóstico de infraestructura hiperconvergida Nutanix</li>
+            <li data-i18n="d1b">Alta disponibilidad, DRP y continuidad del negocio</li>
+            <li data-i18n="d1c">Protección de datos y recuperación ante desastres</li>
+            <li data-i18n="d1d">Análisis de rendimiento — y formación de quien lo hace</li>
+            <li data-i18n="d1e">Hyper-V, VMware, AHV y Citrix</li>
+            <li data-i18n="d1f">Diagnóstico avanzado de red</li>
+          </ul></article>
+        <article class="dm"><p class="dm-n">02</p>
+          <h3 data-i18n="d2t">Nube y arquitectura</h3>
+          <p class="qq" data-i18n="d2q">Mover lo que ya existe sin apagarlo.</p>
+          <ul>
+            <li data-i18n="d2a">Migración Lift &amp; Shift de máquinas virtuales</li>
+            <li data-i18n="d2b">Diseño, construcción y análisis de arquitectura en Azure</li>
+            <li data-i18n="d2c">IaaS en Azure y operación on-premise</li>
+            <li data-i18n="d2d">Almacenamiento a escala de petabytes</li>
+            <li data-i18n="d2e">Aprovisionamiento de arquitecturas HA, DRP y BCP</li>
+            <li data-i18n="d2f">Proyectos de empresa y de gobierno</li>
+          </ul></article>
+        <article class="dm"><p class="dm-n">03</p>
+          <h3 data-i18n="d3t">Seguridad</h3>
+          <p class="qq" data-i18n="d3q">Encontrarle el hueco antes que alguien más.</p>
+          <ul>
+            <li data-i18n="d3a">Hacking ético certificado (CEH, EC-Council)</li>
+            <li data-i18n="d3b">Pentest y evaluación de arquitectura segura</li>
+            <li data-i18n="d3c">Certificación de seguridad de aplicaciones y sistemas</li>
+            <li data-i18n="d3d">Atención y comunicación de incidentes</li>
+            <li data-i18n="d3e">Servidores Linux y firewalls</li>
+            <li data-i18n="d3f">AAA y AAA+; Novell IDM, eDirectory, Sentinel</li>
+          </ul></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HISTORIAL ═════════════════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="caso">
+      <div class="sec-cab">
+        <p class="ceja"><span data-i18n="cejaH">Historial</span></p>
+        <h2><span class="ln"><span data-i18n="hT1">Dónde estuvo</span></span>
+            <span class="ln"><em data-i18n="hT2">el problema cada vez.</em></span></h2>
+      </div>
+
+      <article class="pu" data-emp="nutanix">
+        <div class="pu-meta">
+          <p class="per" data-i18n="p1f">Ago 2019 — hoy</p>
+          <p class="dur" id="dur">—</p><p class="lug">Ciudad de México</p>
+        </div>
+        <div>
+          <h3 data-i18n="p1t">Site Reliability Engineer</h3>
+          <p class="emp">Nutanix México, S.A. de C.V.</p>
+          <ul>
+            <li data-i18n="p1a">Soporte global <b>SRE</b> en un equipo multicultural repartido entre Estados Unidos, India, Australia y México, trabajando en inglés.</li>
+            <li data-i18n="p1b">Diagnóstico de la solución hiperconvergida de Nutanix y del <b>equipo virtual de rendimiento</b>.</li>
+            <li data-i18n="p1c">Soporte sobre <b>Hyper-V, VMware, AHV y Citrix</b>.</li>
+            <li data-i18n="p1d">Protección de datos y recuperación ante desastres.</li>
+            <li data-i18n="p1e"><b>Instructor</b> interno de diagnóstico de rendimiento.</li>
+            <li data-i18n="p1g">Arquitecturas de <b>HA, DRP y BCP</b>, y su aprovisionamiento.</li>
+            <li data-i18n="p1h">Seguridad en servidores Linux y firewalls; diagnóstico avanzado de red.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="pu" data-emp="bside">
+        <div class="pu-meta">
+          <p class="per" data-i18n="p2f">Abr 2018 — Ago 2019</p>
+          <p class="dur" data-i18n="p2d">1 año 4 meses</p><p class="lug">Ciudad de México</p>
+        </div>
+        <div>
+          <h3 data-i18n="p2t">Arquitecto de Soluciones TI</h3>
+          <p class="emp">bSide · Microsoft Gold Partner</p>
+          <ul>
+            <li data-i18n="p2a">Proyectos Azure de empresa y gobierno: <b>Pemex, IMSS, Actica</b> y más de 38 en total.</li>
+            <li data-i18n="p2b">Migración <b>Lift &amp; Shift</b> con <b>8 PB</b> de almacenamiento configurado.</li>
+            <li data-i18n="p2c">Diseño, construcción, implementación y análisis de arquitectura de nube.</li>
+            <li data-i18n="p2e">Arquitectura segura: evaluación y pentest.</li>
+            <li data-i18n="p2g">Operación de IaaS en Azure y on-premise; HA, DRP y BCP.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="pu" data-emp="elektra">
+        <div class="pu-meta">
+          <p class="per" data-i18n="p3f">Dic 2013 — Abr 2018</p>
+          <p class="dur" data-i18n="p3d">4 años 4 meses</p><p class="lug">Ciudad de México</p>
+        </div>
+        <div>
+          <h3 data-i18n="p3t">Ingeniero de Seguridad Especializado</h3>
+          <p class="emp">Grupo Elektra · Oficina de Seguridad de la Información</p>
+          <ul>
+            <li data-i18n="p3a"><b>Hacking ético</b> sobre los sistemas del grupo.</li>
+            <li data-i18n="p3b">Certificación de seguridad de aplicaciones y sistemas operativos.</li>
+            <li data-i18n="p3c">Análisis de arquitectura segura y atención a incidentes.</li>
+            <li data-i18n="p3e"><b>Novell Identity Manager</b>, eDirectory y Sentinel.</li>
+            <li data-i18n="p3f2">Servidores <b>AAA y AAA+</b> de alta transaccionalidad.</li>
+            <li data-i18n="p3g">Arquitecturas HA y seguridad en Linux y firewalls.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══ CREDENCIALES ══════════════════════════════════════════════════ -->
+  <section class="sec" id="credenciales">
+    <div class="caso">
+      <div class="sec-cab">
+        <p class="ceja"><span data-i18n="cejaC">Credenciales</span></p>
+        <h2><span class="ln"><span data-i18n="cT1">Certificado,</span></span>
+            <span class="ln"><em data-i18n="cT2">no sólo practicado.</em></span></h2>
+      </div>
+      <div class="dob">
+        <div>
+          <p class="rot" data-i18n="rot1">Certificaciones</p>
+          <div class="chips">
+            <span class="ch"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8.5 L6 12 L13.5 4" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>NCP <small>Nutanix</small></span>
+            <span class="ch"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8.5 L6 12 L13.5 4" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>NCAP <small>Nutanix</small></span>
+            <span class="ch"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8.5 L6 12 L13.5 4" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>NSS <small>Nutanix</small></span>
+            <span class="ch"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8.5 L6 12 L13.5 4" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>CEH <small>EC-Council · 2018</small></span>
+          </div>
+        </div>
+        <div>
+          <p class="rot" data-i18n="rot2">Formación</p>
+          <div class="estu">
+            <div class="es"><span class="an">2013—2015</span>
+              <p data-i18n="e1">Maestría en Dirección y Administración de Empresas (MBA)<small>Universidad del Valle de México · Universidad Europea de Madrid</small></p></div>
+            <div class="es"><span class="an">2008—2013</span>
+              <p data-i18n="e2">Ingeniería en Sistemas Computacionales<small>Universidad del Valle de México</small></p></div>
+            <div class="es"><span class="an">2006—2008</span>
+              <p data-i18n="e3">Técnico en Operación de Microcomputadoras<small>Formación técnica inicial</small></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACTO ══════════════════════════════════════════════════════ -->
+  <section class="cont" id="contacto">
+    <div class="caso">
+      <p class="ceja"><span data-i18n="cejaX">Contacto</span></p>
+      <h2><span class="ln"><span data-i18n="xT1">¿Algo que no</span></span>
+          <span class="ln"><em data-i18n="xT2">se puede caer?</em></span></h2>
+      <p class="prosa up" style="margin-top:22px;max-width:52ch;font-size:18px" data-i18n="xSub">Escríbeme y lo revisamos. Respondo en español o en inglés, y trabajo con equipos en cualquiera de los cuatro husos.</p>
+      <div class="vias">
+        <a class="via" href="mailto:mauro.boss@gmail.com">
+          <p class="vk" data-i18n="v1">Correo</p><p class="vv">mauro.boss@gmail.com</p>
+          <svg class="fl" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 h6 v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="via" href="tel:+525547677080">
+          <p class="vk" data-i18n="v2">Teléfono</p><p class="vv">+52 55 4767 7080</p>
+          <svg class="fl" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 h6 v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="via"><p class="vk" data-i18n="v3">Ubicación</p>
+          <p class="vv" data-i18n="v3v">Ciudad de México</p></div>
+        <!-- LINKEDIN · falta el dato, no el sitio. Se quitan las dos lineas de
+             comentario y se pega. Es lo primero que mira un reclutador.
+        <a class="via" href="https://www.linkedin.com/in/USUARIO">
+          <p class="vk">LinkedIn</p><p class="vv">linkedin.com/in/USUARIO</p></a>
+        -->
+      </div>
+    </div>
+    <footer><div class="caso pie">
+      <span>Maurice Valdés Bermúdez</span><span>Site Reliability Engineer</span>
+      <span class="sp" id="anio">©</span>
+    </div></footer>
+  </section>
+
+</main>
+
+<!-- Consola de incidente. Vacía y fuera de pantalla hasta que alguien pulsa. -->
+<aside class="cinta" id="cinta" role="status" aria-live="polite">
+  <div class="caso">
+    <span class="pul" aria-hidden="true"></span>
+    <b id="cinta-fase">SEV1</b>
+    <span class="dsc" id="cinta-dsc"></span>
+    <svg class="graf" id="cinta-graf" width="150" height="22" viewBox="0 0 150 22"
+         aria-hidden="true"><path d=""/></svg>
+    <span class="num" id="cinta-num"></span>
+  </div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+  var quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var raiz = document.documentElement;
+
+  /* ══ 1 · LA NUBE DE FICHAS ════════════════════════════════════════════
+     El gancho, tomado de cosmos.so: fichas redondeadas a la deriva en 3D,
+     con desenfoque por profundidad. Ellos las llenan de fotografía de moda.
+     Maurice no tiene fotos —el trabajo de un SRE sólo se ve cuando falla—,
+     así que aquí las fichas llevan SU material. La nube es su carrera.
+
+     Son nodos del DOM y no un canvas a propósito: el texto es texto de
+     verdad. Y sólo se tocan `transform` y `filter`, que resuelve el
+     compositor sin recalcular nada. */
+  var PIEZAS = [
+    { e: 'bside', t: '8 PB',             c: 'num ocre' },
+    { e: 'bside', t: 'Pemex',            c: 'tinta' },
+    { e: 'nutanix', t: 'Nutanix AHV',      c: '' },
+    { e: 'bside', t: 'IMSS',             c: 'tinta' },
+    { e: 'elektra', t: 'CEH',              c: 'num' },
+    { e: 'nutanix', t: 'VMware',           c: 'hueso' },
+    { e: 'nutanix', t: 'Hyper-V',          c: '' },
+    { e: 'bside', t: 'Lift & Shift',     c: 'hueso' },
+    { e: 'nutanix', t: 'Citrix',           c: '' },
+    { e: 'bside', t: '+38',              c: 'num ocre' },
+    { e: 'bside', t: 'Azure',            c: 'tinta' },
+    { e: 'nutanix', t: 'DRP · BCP',        c: 'hueso' },
+    { e: 'nutanix', t: 'Bangalore',        c: '' },
+    { e: 'nutanix', t: 'Sídney',           c: '' },
+    { e: 'elektra', t: 'Hacking ético',    c: 'hueso' },
+    { e: 'elektra', t: 'Linux',            c: '' },
+    { e: 'nutanix', t: 'NCP · NCAP · NSS', c: 'num' },
+    { e: 'elektra', t: 'Firewalls',        c: 'hueso' },
+    { e: 'elektra', t: 'Grupo Elektra',    c: '' },
+    { e: 'elektra', t: 'Pentest',          c: 'tinta' },
+    { e: 'elektra', t: 'AAA+',             c: 'num' },
+    { e: 'nutanix', t: 'Alta disponibilidad', c: 'hueso' }
+  ];
+
+  var nube = document.getElementById('nube'), fichas = [];
+
+  /* El hueco es LA CAJA MEDIDA del bloque de texto, no una fracción del alto.
+     Con la fracción (0.25·alto) el hueco pedía 211px arriba y abajo del centro
+     mientras el marco sólo daba 115 por abajo —la cinta se come el resto—, así
+     que la regla era imposible de cumplir y dos fichas se quedaban encimadas
+     rebotando entre el hueco y el encuadre. Midiéndolo, el hueco es exactamente
+     donde está el texto, ni un pixel más. */
+  /* Los huecos son los RENGLONES PINTADOS, uno por línea, no la caja del
+     contenedor. Con la caja del contenedor el hueco medía 1200px de ancho en
+     una ventana de 1280: ninguna ficha podía salirse por los lados, arriba no
+     cabía, y las que caían dentro se quedaban ahí —así acabó una ficha encima
+     de la frase de portada—. Renglón a renglón el hueco tiene la forma del
+     texto, con sus entrantes, y eso deja sitio de verdad alrededor. */
+  var HUECOS = [];
+  function medirHuecos() {
+    if (!nube) return [];
+    var rn = nube.getBoundingClientRect();
+    var cx = rn.left + rn.width / 2, cy = rn.top + rn.height / 2;
+    var m = rn.width < 900 ? 12 : 22, out = [];
+    var mete = function (r, mg, todas) {
+      if (!r || r.width < 4 || r.height < 4) return;
+      out.push({ x0: r.left - cx - mg, x1: r.right - cx + mg,
+                 y0: r.top - cy - mg,  y1: r.bottom - cy + mg, todas: todas });
+    };
+    /* El texto: sólo lo esquivan las fichas nítidas. Las del fondo pasando por
+       detrás del titular es justo lo que se lee como profundidad. */
+    ['.portada .ceja', '.portada h1', '.portada .tesis'].forEach(function (sel) {
+      var el = document.querySelector(sel); if (!el) return;
+      var rg = document.createRange(); rg.selectNodeContents(el);
+      var rs = rg.getClientRects();
+      if (!rs.length) mete(el.getBoundingClientRect(), m, false);
+      for (var i = 0; i < rs.length; i++) mete(rs[i], m, false);
+    });
+    /* Los botones NO los esquiva sólo la mitad: una ficha desenfocada detrás
+       de «Hablemos» no se lee como profundidad, se lee como una mancha. */
+    var ac = document.querySelector('.portada .acciones');
+    if (ac) for (var k = 0; k < ac.children.length; k++)
+      mete(ac.children[k].getBoundingClientRect(), 14, true);
+    /* Los módulos son cajas sólidas: ninguna ficha, nítida o borrosa, puede
+       quedar debajo —se vería el canto asomando por detrás de un bloque de
+       color y parecería un fallo de pintado—. */
+    document.querySelectorAll('.portada .mod').forEach(function (m) {
+      mete(m.getBoundingClientRect(), 12, true);
+    });
+    return out;
+  }
+
+  function sembrarNube() {
+    if (!nube) return;
+    if (innerWidth < 1040) { nube.innerHTML = ''; fichas = []; return; }
+    nube.innerHTML = ''; fichas = [];
+    /* La caja es la de .nube, NO la ventana: .portada mide 100svh MÁS la
+       marquesina, así que medir contra innerHeight dejaba fichas detrás de la
+       cinta, cortadas por la mitad. Y la marquesina se reserva abajo. */
+    var w = nube.offsetWidth || innerWidth;
+    var h = Math.max(nube.offsetHeight || innerHeight, 620);
+    /* La reserva se MIDE contra la caja, no se arma sumando alto + margen +
+       padding: esa cuenta salía 4px corta y las fichas de abajo asomaban por
+       encima del filete de la cinta. */
+    var rn = nube.getBoundingClientRect();
+    var cinta = document.querySelector('.marq'), reserva = 0;
+    if (cinta) reserva = Math.max(0, rn.bottom - cinta.getBoundingClientRect().top) + 10;
+    /* La barra superior es fija y TRANSPARENTE hasta que se baja: sin reservar
+       su franja, las fichas se le metían debajo y el nombre del sitio y el menú
+       quedaban ilegibles sobre ellas. El fondo opaco no vale aquí: es
+       transparente a propósito arriba del todo. */
+    var tapa = document.querySelector('.barra'), reservaArriba = 0;
+    if (tapa) reservaArriba = Math.max(0, tapa.getBoundingClientRect().bottom - rn.top) + 18;
+    var angosto = w < 900;
+    /* Cuántas fichas caben es cosa del ÁREA LIBRE, no del gusto. Medido: 23
+       fichas entran holgadas a 1920x1080 y a 1280x860 ya no —se encimaban
+       cuatro—, porque el hueco del texto se lleva el centro entero. El cupo
+       baja con el área y el reparto es uniforme sobre la lista, para que la
+       mezcla de estilos (tinta, ocre, hueso, mono) se conserve. */
+    var area = w * h, N = PIEZAS.length;
+    /* Se siembran todas las que el ancho permita y la poda decide cuántas
+       sobreviven: el cupo exacto depende del largo del texto de cada ficha y
+       del idioma, así que calcularlo de antemano siempre se quedaba corto en
+       un sitio y largo en otro. */
+    var cupo = w < 560 ? 7 : w < 900 ? 9 : N;
+    var lista = cupo >= N ? PIEZAS : (function () {
+      var out = [], vistos = {};
+      for (var k = 0; k < cupo; k++) {
+        var ix = Math.round(k * (N - 1) / (cupo - 1));
+        if (!vistos[ix]) { vistos[ix] = 1; out.push(PIEZAS[ix]); }
+      }
+      return out;
+    })();
+
+    lista.forEach(function (p, i) {
+      var d = document.createElement('div');
+      d.className = 'fi ' + (p.foto ? 'foto' : (p.c || ''));
+      if (p.e) {
+        d.dataset.emp = p.e;
+        /* Señalar una ficha enciende las de su mismo trabajo y manda el
+           resto al fondo. Es la única parte del enlace cruzado que se ve
+           entera sin salir de la portada, y convierte la nube en algo que
+           se explora en vez de algo que sólo flota. */
+        d.addEventListener('pointerenter', function () { if (!incActivo) enfocar(p.e); });
+        d.addEventListener('pointerleave', function () { if (!incActivo) enfocar(null); });
+      }
+      d.textContent = p.t;
+
+      /* Reparto en una elipse alrededor del titular. Los semiejes se miden
+         CONTRA LA VENTANA, no contra un radio fijo: la primera versión usaba
+         un radio en píxeles multiplicado por 1.58 y a 1280 px mandaba casi
+         todas las fichas fuera del encuadre — quedaban cuatro restos en las
+         esquinas en vez de una nube. El azar va sembrado por el índice: la
+         composición es idéntica en cada carga, no una lotería distinta. */
+      var a = (i / lista.length) * Math.PI * 2 + (i % 3) * .45;
+      var s1 = Math.sin(i * 12.9898) * 43758.5453; var r1 = s1 - Math.floor(s1);
+      var s2 = Math.sin(i * 78.233) * 12345.6789;  var r2 = s2 - Math.floor(s2);
+      var z = -260 + r2 * 300;
+      var ox = Math.cos(a) * (angosto ? .30 + r1 * .10 : .31 + r1 * .12) * w;
+      var oy = Math.sin(a) * (angosto ? .30 + r2 * .11 : .25 + r2 * .13) * h;
+
+      /* El hueco del nombre sólo lo respetan las fichas NÍTIDAS. Las del fondo
+         llevan desenfoque de profundidad y pasar por detrás del titular es
+         justo lo que hace que se lea como profundidad y no como estorbo.
+         En teléfono el titular ocupa el ancho completo: ahí no hay "a los
+         lados" que valga, así que el hueco se libera hacia arriba y abajo. */
+      var nitida = z >= -130;
+
+      var o = {
+        el: d, ox: ox, oy: oy, z: z,
+        rot: (r1 - .5) * 24,
+        esc: .74 + (z + 260) / 560 * .5,
+        fx: .00018 + r1 * .00028,
+        fy: .00015 + r2 * .00026,
+        /* La deriva se encoge en pantallas chicas. No es estética: la amplitud
+           entra en el margen de separación, y 30px de vaivén sobre una ficha
+           de 60px se come el sitio que hace falta para no encimarlas. */
+        ax: (6 + r1 * 10) * (angosto ? .55 : 1),
+        ay: (5 + r2 * 9) * (angosto ? .55 : 1),
+        ph: i * 1.7,
+        nitida: nitida,
+        emp: p.e || null,
+        escMeta: 1, escAct: 1,
+        /* Entrada: cada ficha llega desde el fondo y se asienta, con su
+           retraso. Las de delante entran antes que las del fondo, que es
+           como se mira una escena de verdad. */
+        retraso: 90 + (1 - (z + 260) / 560) * 260 + (i % 5) * 55,
+        desenfoque: 'blur(' + (z < -130 ? 3.4 : z < -40 ? 1.5 : 0).toFixed(1) + 'px)'
+      };
+      d.style.filter = 'blur(' + (z < -130 ? 3.4 : z < -40 ? 1.5 : 0).toFixed(1) + 'px)';
+      d.style.zIndex = String(Math.round(z + 300));
+      fichas.push(o); nube.appendChild(d);
+    });
+    HUECOS = medirHuecos();
+    t0Nube = 0;
+    colocar(0, 0, 0, true);    // a su tamaño final: así se miden de verdad
+    separar(w, h, angosto, reserva, reservaArriba);
+    colocar(0, 0, 0, true);
+    podarPintadas();           // y una última poda sobre lo ya dibujado
+    colocar(0, 0, 0, true);
+  }
+
+  /* ÚLTIMA RED, Y SOBRE LO PINTADO. La poda del modelo compara ox, oy, mw y
+     mh; si alguna de esas cuatro no coincide con lo que el navegador dibuja,
+     un par encimado se cuela sin que ninguna comprobación lo vea. Esto mide
+     las cajas ya dibujadas, que es lo único que no puede mentir. Al
+     rectángulo se le suma lo que la ficha va a moverse después: su deriva. */
+  function podarPintadas() {
+    var i, a, b;
+    for (i = 0; i < fichas.length; i++) {
+      var r = fichas[i].el.getBoundingClientRect();
+      fichas[i].rx = r.left + r.width / 2; fichas[i].ry = r.top + r.height / 2;
+      fichas[i].rw = r.width / 2 + fichas[i].ax + 9;
+      fichas[i].rh = r.height / 2 + fichas[i].ay + 8;
+    }
+    for (a = 0; a < fichas.length; a++) for (b = a + 1; b < fichas.length; b++) {
+      var u = fichas[a], v = fichas[b];
+      if (u.rw + v.rw - Math.abs(v.rx - u.rx) > 0 &&
+          u.rh + v.rh - Math.abs(v.ry - u.ry) > 0) {
+        if (v.el.parentNode) v.el.parentNode.removeChild(v.el);
+        fichas.splice(b, 1); b--;
+      }
+    }
+  }
+
+  /* Relajación: el reparto en elipse por sí solo amontona fichas —se midió,
+     tres encimadas arriba del nombre y tres abajo a la izquierda—, porque dos
+     ángulos vecinos con radios parecidos caen al mismo sitio. Esto las empuja
+     hasta que dejan de pisarse, con las medidas REALES de cada caja (el texto
+     decide el ancho, y en inglés no es el mismo). Es determinista: mismas
+     posiciones de partida, mismas iteraciones, misma composición. */
+  function separar(w, h, angosto, reserva, reservaArriba) {
+    var n = fichas.length, i, j, k;
+    for (i = 0; i < n; i++) {
+      /* Se MIDE la caja ya pintada —con su giro y su escala puestos—, no se
+         calcula a partir de offsetWidth. Calcularla con trigonometría daba 22px
+         de media caja donde el navegador pintaba 29, y por esos 7px una ficha
+         se quedaba encima de un botón sin que ninguna comprobación lo viera.
+         Y al tamaño se le suma la DERIVA: separarlas por su caja en reposo no
+         sirve si luego cada una oscila y se vuelven a encimar. */
+      var f0 = fichas[i], rb = f0.el.getBoundingClientRect();
+      /* Al margen entra TODO lo que mueve la ficha después: la deriva y el
+         paralaje del ratón. MEDIDO: con el puntero en una esquina el paralaje
+         desplazaba las fichas hasta 52px y metía las nítidas encima del
+         nombre, un defecto que no se veía con el ratón en el centro. Por eso
+         el paralaje se bajó a 18px y esos 18px se reservan aquí. */
+      f0.mw = rb.width / 2 + 9 + f0.ax + 3;   // +3: la parte del paralaje
+      f0.mh = rb.height / 2 + 9 + f0.ay + 3;  //     que varía con la profundidad
+      /* El paralaje se reserva SÓLO contra el texto, no entre fichas: mueve a
+         todas en el mismo sentido, así que no las acerca entre sí, pero el
+         texto no se mueve con ellas. Meterlo en el margen general costaba un
+         tercio de la nube para nada. */
+      f0.hw = f0.mw + 18; f0.hh = f0.mh + 15;
+    }
+    for (k = 0; k < 260; k++) {
+      var movio = false;
+      for (i = 0; i < n; i++) for (j = i + 1; j < n; j++) {
+        var a = fichas[i], b = fichas[j];
+        var dx = b.ox - a.ox, dy = b.oy - a.oy;
+        var sx = a.mw + b.mw - Math.abs(dx), sy = a.mh + b.mh - Math.abs(dy);
+        if (sx <= 0 || sy <= 0) continue;          // no se tocan
+        movio = true;
+        /* Si a las dos las tiene clavadas el hueco del titular, separarlas en
+           vertical no sirve: la vuelta siguiente el hueco las devuelve a la
+           misma altura y el bucle no termina nunca. MEDIDO: así se quedaban
+           encimadas «Citrix» y «Bangalore» a 390px. Se separan en horizontal. */
+        if (a.pinY && b.pinY) {
+          var qx = (dx < 0 ? -1 : 1) * sx * .5 || sx * .5;
+          a.ox -= qx; b.ox += qx;
+        } else if (sx / (a.mw + b.mw) < sy / (a.mh + b.mh)) {
+          var px = (dx < 0 ? -1 : 1) * sx * .5;
+          a.ox -= px; b.ox += px;
+        } else {
+          var py = (dy < 0 ? -1 : 1) * sy * .5;
+          a.oy -= py; b.oy += py;
+        }
+      }
+      // el hueco del titular y el encuadre se reimponen en cada vuelta
+      for (i = 0; i < n; i++) {
+        var f = fichas[i];
+        var lx = w / 2 - f.mw - 6;
+        var arriba = h / 2 - f.mh - 6 - reservaArriba, abajo = h / 2 - f.mh - 6 - reserva;
+        f.pinY = false;
+        /* Se escoge la salida MÁS CORTA de las cuatro, y sólo entre las que
+           caben en el encuadre: empujar una ficha a la izquierda cuando por ahí
+           no hay sitio es lo que la hacía rebotar para siempre. */
+        for (var q = 0; q < HUECOS.length; q++) {
+          var H = HUECOS[q];
+          if (!H.todas && !f.nitida) continue;
+          if (!(f.ox + f.hw > H.x0 && f.ox - f.hw < H.x1 &&
+                f.oy + f.hh > H.y0 && f.oy - f.hh < H.y1)) continue;
+          var cand = [
+            { d: f.ox + f.hw - H.x0, ej: 'x', v: H.x0 - f.hw, ok: H.x0 - f.hw >= -lx },
+            { d: H.x1 - (f.ox - f.hw), ej: 'x', v: H.x1 + f.hw, ok: H.x1 + f.hw <= lx },
+            { d: f.oy + f.hh - H.y0, ej: 'y', v: H.y0 - f.hh, ok: H.y0 - f.hh >= -arriba },
+            { d: H.y1 - (f.oy - f.hh), ej: 'y', v: H.y1 + f.hh, ok: H.y1 + f.hh <= abajo }
+          ].filter(function (c) { return c.ok; });
+          if (!cand.length) continue;
+          cand.sort(function (p, r) { return p.d - r.d; });
+          if (cand[0].ej === 'x') f.ox = cand[0].v;
+          else { f.oy = cand[0].v; f.pinY = true; }
+        }
+        if (f.ox > lx) f.ox = lx; if (f.ox < -lx) f.ox = -lx;
+        if (f.oy > abajo) { f.oy = abajo; f.pinY = true; }
+        if (f.oy < -arriba) { f.oy = -arriba; f.pinY = true; }
+      }
+      if (!movio) break;
+    }
+
+    /* Red de seguridad. En encuadres muy apretados (360px en inglés, 768x1024)
+       la relajación no siempre llega a una solución sin cruces: hay más fichas
+       que sitio, y empujar más sólo cambia de pareja encimada. Ahí se quita
+       una. Cinco fichas limpias se leen; seis amontonadas, no. */
+    for (i = 0; i < fichas.length; i++) for (j = i + 1; j < fichas.length; j++) {
+      var u = fichas[i], v = fichas[j];
+      /* La prueba usa el espacio BARRIDO, no la caja en reposo: dos fichas
+         separadas justo por su caja se tocan en cuanto la deriva las acerca,
+         y eso fue exactamente lo que se midió a 1366x768. */
+      var cx2 = u.mw + v.mw - Math.abs(v.ox - u.ox);
+      var cy2 = u.mh + v.mh - Math.abs(v.oy - u.oy);
+      if (cx2 > 0 && cy2 > 0) {
+        if (v.el.parentNode) v.el.parentNode.removeChild(v.el);
+        fichas.splice(j, 1); j--;
+      }
+    }
+    /* Marcar las que pasan por detrás del texto, para que el enfoque las
+       deje en paz. Se calcula aquí porque aquí están ya las posiciones
+       definitivas y los huecos medidos. */
+    for (i = 0; i < fichas.length; i++) {
+      var w2 = fichas[i]; w2.enHueco = false;
+      for (var h2 = 0; h2 < HUECOS.length; h2++) {
+        var K = HUECOS[h2];
+        if (w2.ox + w2.hw > K.x0 && w2.ox - w2.hw < K.x1 &&
+            w2.oy + w2.hh > K.y0 && w2.oy - w2.hh < K.y1) { w2.enHueco = true; break; }
+      }
+    }
+
+    /* Y la misma red para los huecos: si una ficha se quedó dentro del texto o
+       de un botón porque no tenía por dónde salir sin irse del encuadre, se
+       quita. Tapar un botón no es un defecto de estilo, es un botón que no se
+       ve. */
+    for (i = fichas.length - 1; i >= 0; i--) {
+      var g = fichas[i];
+      for (var z2 = 0; z2 < HUECOS.length; z2++) {
+        var J = HUECOS[z2];
+        if (!J.todas && !g.nitida) continue;
+        if (g.ox + g.hw > J.x0 && g.ox - g.hw < J.x1 &&
+            g.oy + g.hh > J.y0 && g.oy - g.hh < J.y1) {
+          if (g.el.parentNode) g.el.parentNode.removeChild(g.el);
+          fichas.splice(i, 1); break;
+        }
+      }
+    }
+  }
+
+  var mx = 0, my = 0, mxs = 0, mys = 0;
+
+  /* Un toque en la portada suelta una onda que empuja las fichas al pasar.
+     Es un ping: la herramienta con la que se mira si una red responde. */
+  var ping = null;
+
+  var t0Nube = 0;
+  /* `crudo` pinta las fichas a su TAMAÑO FINAL, sin la entrada. Lo usa la
+     siembra para medirlas: midiéndolas a mitad de la entrada salían un 28 %
+     más pequeñas, los márgenes de separación se calculaban cortos, y al
+     asentarse se encimaban. Era exactamente lo que cruzaba «Hacking ético»
+     con «NCP · NCAP · NSS» a 1600px y no se veía en ninguna otra parte. */
+  function colocar(t, px, py, crudo) {
+    if (!t0Nube) t0Nube = t;
+    var onda = null;
+    if (ping) {
+      var edad = t - ping.t;
+      if (edad > 1500) ping = null;
+      else onda = { r: edad * .95, f: Math.max(0, 1 - edad / 1500) };
+    }
+    for (var i = 0; i < fichas.length; i++) {
+      var f = fichas[i];
+      var dx = Math.sin(t * f.fx + f.ph) * f.ax;
+      var dy = Math.cos(t * f.fy + f.ph * .7) * f.ay;
+      var par = (f.z + 300) / 560;
+      /* El paralaje depende poco de la profundidad a propósito. La parte que
+         SÍ depende es la única que acerca unas fichas a otras —todas se
+         mueven igual, salvo por ese término—, y con 14px de diferencia dos
+         fichas vecinas acababan tocándose con el puntero en una esquina.
+         Con 6, la separación calculada aguanta. */
+      var x = f.ox + dx + px * (10 + par * 6);
+      var y = f.oy + dy + py * (8 + par * 5);
+      if (onda) {
+        var ax2 = f.ox - ping.x, ay2 = f.oy - ping.y;
+        var d2 = Math.sqrt(ax2 * ax2 + ay2 * ay2) || 1;
+        var q = (d2 - onda.r) / 95;
+        var emp2 = Math.exp(-q * q) * onda.f * 30;
+        x += ax2 / d2 * emp2; y += ay2 / d2 * emp2;
+      }
+      f.escAct += (f.escMeta - f.escAct) * .11;
+
+      /* La entrada se mezcla con la posición final en vez de ser una
+         animación aparte: así el paralaje, la deriva y la onda del ping ya
+         funcionan mientras la ficha todavía está llegando, y no hay un salto
+         al terminar. */
+      var ent = (quieto || crudo) ? 1 : (t - t0Nube - f.retraso) / 900;
+      if (ent < 1) {
+        ent = ent <= 0 ? 0 : 1 - Math.pow(1 - ent, 3);
+        x *= .62 + ent * .38; y *= .62 + ent * .38;
+        y -= (1 - ent) * 26;
+      } else ent = 1;
+
+      f.el.style.transform =
+        'translate3d(calc(-50% + ' + x.toFixed(1) + 'px), calc(-50% + ' + y.toFixed(1) + 'px), 0)' +
+        ' rotate(' + (f.rot * (.3 + ent * .7) + dx * .12).toFixed(2) + 'deg)' +
+        ' scale(' + (f.esc * f.escAct * (.72 + ent * .28)).toFixed(3) + ')';
+    }
+  }
+
+  /* ENLACE CRUZADO. Enfocar un trabajo adelanta SUS fichas y manda el resto
+     al fondo. No es adorno: enseña de qué puesto salió cada pieza del oficio,
+     que es justo lo que un currículum en papel no consigue decir. */
+  var focoEmp = null;
+  var TONO = { elektra: 'var(--t1)', bside: 'var(--t2)', nutanix: 'var(--t3)' };
+  function enfocar(emp) {
+    if (emp === focoEmp) return;
+    focoEmp = emp || null;
+    if (nube) { if (focoEmp) nube.setAttribute('data-foco', ''); else nube.removeAttribute('data-foco'); }
+    var bvx = document.getElementById('bv');
+    if (bvx) { if (focoEmp) bvx.setAttribute('data-foco', ''); else bvx.removeAttribute('data-foco'); }
+    document.querySelectorAll('.tr[data-k], .pu[data-emp]').forEach(function (n) {
+      var e2 = n.dataset.k || n.dataset.emp;
+      if (focoEmp && e2 === focoEmp) n.setAttribute('data-act', ''); else n.removeAttribute('data-act');
+    });
+    for (var i = 0; i < fichas.length; i++) {
+      var f = fichas[i];
+      /* Las que pasan por detrás del texto se quedan exactamente como están.
+         Son las borrosas del fondo —ahí está la profundidad—, pero si el
+         enfoque les quitara el desenfoque se volverían nítidas ENCIMA del
+         nombre. Medido: «Pentest» y «Firewalls» sobre «Valdés». */
+      if (f.enHueco) {
+        f.escMeta = 1; f.el.style.filter = f.desenfoque; f.el.style.boxShadow = '';
+        continue;
+      }
+      /* Y la enfocada tampoco crece: el hueco se calculó con las fichas a su
+         tamaño. El adelanto se consigue hundiendo las demás, que sale igual
+         de claro y no mueve un pixel de geometría. */
+      f.escMeta = !focoEmp ? 1 : (f.emp === focoEmp ? 1 : .84);
+      f.el.style.filter = !focoEmp ? f.desenfoque
+        : (f.emp === focoEmp ? 'none' : 'blur(4.5px) saturate(.2)');
+      f.el.style.boxShadow = (focoEmp && f.emp === focoEmp)
+        ? '0 0 0 2px ' + (TONO[focoEmp] || 'var(--ocre)') + ', 0 14px 34px -20px rgba(20,14,8,.5)'
+        : '';
+    }
+    if (quieto) colocar(performance.now(), mxs, mys);
+  }
+
+  /* ══ 2 · un solo bucle para todo lo continuo ═════════════════════════
+     La nube, la cinta de tecnologías y la consola del incidente comparten un
+     único requestAnimationFrame. Tres bucles harían tres veces el trabajo de
+     sincronización que el navegador ya hace una vez. */
+  var viva = true, corre = false, ultimoMs = 0;
+  function bucle(ms) {
+    if (!viva || document.hidden) { corre = false; return; }
+    var dt = ultimoMs ? Math.min(60, ms - ultimoMs) : 16; ultimoMs = ms;
+    mxs += (mx - mxs) * .045; mys += (my - mys) * .045;
+    colocar(ms, mxs, mys);
+    pasoMarquesina(dt);
+    pasoIncidente(ms);
+    requestAnimationFrame(bucle);
+  }
+  function arrancar() {
+    if (!corre && !quieto) { corre = true; ultimoMs = 0; requestAnimationFrame(bucle); }
+  }
+
+  if (nube) {
+    sembrarNube();
+    if (!quieto) {
+      arrancar();
+      addEventListener('pointermove', function (e) {
+        mx = (e.clientX / innerWidth - .5) * 2;
+        my = (e.clientY / innerHeight - .5) * 2;
+      }, { passive: true });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          viva = es[0].isIntersecting || incActivo; if (viva) arrancar();
+        }, { threshold: 0 }).observe(nube);
+      }
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) arrancar(); });
+    }
+    /* Se vuelve a sembrar cuando la tipografía llega: las fichas se miden con
+       la fuente que haya en ese momento, y si se midieron con la de respaldo
+       las cajas cambian de ancho al cargar Host Grotesk y la separación que se
+       calculó deja de ser cierta. Era justo lo que sacaba fichas del encuadre. */
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sembrarNube);
+    var tt; addEventListener('resize', function () {
+      clearTimeout(tt); tt = setTimeout(sembrarNube, 220);
+    });
+  }
+
+  /* ══ 3 · marquesina ═════════════════════════════════════════════════ */
+  var STACK = ['Nutanix AHV', 'VMware', 'Microsoft Hyper-V', 'Citrix', 'Microsoft Azure',
+    'Lift & Shift', 'Alta disponibilidad', 'DRP', 'BCP', 'Linux', 'Firewalls', 'AAA / AAA+',
+    'Novell Identity Manager', 'eDirectory', 'Sentinel', 'Pentest', 'Hacking ético',
+    'Recuperación ante desastres', 'Diagnóstico de red'];
+  var marq = document.getElementById('marq'), anchoMarq = 0, marqX = 0;
+  if (marq) {
+    var fila = STACK.map(function (s) { return '<span>' + s + '</span>'; }).join('');
+    marq.innerHTML = fila + fila;      /* duplicada: el bucle no da tirón */
+  }
+
+  /* La cinta responde a la VELOCIDAD del scroll: acelera bajando, frena y da
+     marcha atrás subiendo. Una marquesina a velocidad fija es un adorno; ésta
+     reacciona a lo que hace la persona, que es lo que la hace sentirse viva.
+     La anima el mismo bucle que la nube, no una animación de CSS aparte. */
+  var velS = 0, yAnt = window.scrollY || 0;
+  addEventListener('scroll', function () {
+    var y = window.scrollY || 0;
+    velS += (y - yAnt); yAnt = y;
+    if (velS > 90) velS = 90; if (velS < -90) velS = -90;
+  }, { passive: true });
+
+  function medirMarquesina() {
+    if (marq) { anchoMarq = marq.scrollWidth / 2; if (anchoMarq > 0) marq.parentNode.classList.add('marq-js'); }
+  }
+  medirMarquesina();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(medirMarquesina);
+  addEventListener('resize', medirMarquesina);
+
+  function pasoMarquesina(dt) {
+    if (!marq || !anchoMarq) return;
+    velS *= .90;
+    var v = .034 + velS * .0052;           /* px por milisegundo */
+    marqX -= v * dt;
+    if (marqX <= -anchoMarq) marqX += anchoMarq;
+    if (marqX > 0) marqX -= anchoMarq;
+    marq.style.transform = 'translate3d(' + marqX.toFixed(1) + 'px,0,0)';
+  }
+
+  /* ══ 4 · barra pegada ═══════════════════════════════════════════════ */
+  var cab = document.getElementById('barra'), pend = false;
+  addEventListener('scroll', function () {
+    if (pend) return; pend = true;
+    requestAnimationFrame(function () {
+      if (cab) { if (scrollY > 30) cab.setAttribute('data-peg', ''); else cab.removeAttribute('data-peg'); }
+      pend = false;
+    });
+  }, { passive: true });
+
+  /* ══ 5 · botones imantados ══════════════════════════════════════════ */
+  if (!quieto && matchMedia('(pointer:fine)').matches) {
+    document.querySelectorAll('.b, .idi').forEach(function (b) {
+      b.addEventListener('pointermove', function (e) {
+        var r = b.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * .2;
+        var y = (e.clientY - r.top - r.height / 2) * .3;
+        b.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+      });
+      b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+    });
+  }
+
+  /* ══ 6 · revelados ══════════════════════════════════════════════════ */
+  function revelar() {
+    var ns = [].slice.call(document.querySelectorAll('.sec, .cont, .portada, .ln, .up'));
+    if (quieto || !('IntersectionObserver' in window)) {
+      ns.forEach(function (n) { n.classList.add('vis'); }); return;
+    }
+    var ojo = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('vis'); ojo.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .05 });
+    ns.forEach(function (n) { ojo.observe(n); });
+
+    /* RED DE SEGURIDAD, y no es teórica: en una captura de página completa los
+       títulos de sección salieron EN BLANCO. El observador no había entregado
+       su aviso y el texto seguía desplazado fuera de su máscara. Un titular que
+       depende de que un aviso llegue es un titular que a veces no está —en una
+       miniatura, al imprimir, al abrir a media página—. Esto repasa a mano lo
+       que ya está en pantalla y lo destapa, pase lo que pase con el aviso. */
+    var pend = false;
+    function repasar() {
+      pend = false;
+      var alto = innerHeight || 800;
+      for (var i = ns.length - 1; i >= 0; i--) {
+        var n = ns[i];
+        if (n.classList.contains('vis')) { ns.splice(i, 1); continue; }
+        var r = n.getBoundingClientRect();
+        if (r.top < alto * .92 && r.bottom > 0) {
+          n.classList.add('vis'); ojo.unobserve(n); ns.splice(i, 1);
+        }
+      }
+    }
+    function pedirRepaso() { if (!pend) { pend = true; requestAnimationFrame(repasar); } }
+    addEventListener('scroll', pedirRepaso, { passive: true });
+    addEventListener('resize', pedirRepaso);
+    addEventListener('load', pedirRepaso);
+    setTimeout(repasar, 600);
+    document.querySelectorAll('h1, h2, .tesis').forEach(function (t) {
+      t.querySelectorAll('.ln > *').forEach(function (l, i) {
+        l.style.transitionDelay = (0.06 + i * 0.11) + 's';
+      });
+      if (t.classList.contains('ln')) {
+        var d = t.querySelector(':scope > *'); if (d) d.style.transitionDelay = '.28s';
+      }
+    });
+    requestAnimationFrame(function () {
+      var p = document.querySelector('.portada'); if (p) p.classList.add('vis');
+      document.querySelectorAll('.portada .ln, .portada .up')
+        .forEach(function (n) { n.classList.add('vis'); });
+    });
+  }
+
+  /* ══ 7 · contadores ═════════════════════════════════════════════════ */
+  function contadores() {
+    if (quieto || !('IntersectionObserver' in window)) return;
+    var ojo = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        /* No cuenta de cero a veinte: CONVERGE. Sobrepasa el valor y se
+           asienta, como un sistema que se estabiliza, y debajo una barrita
+           se encoge hasta desaparecer cuando ya no oscila. Una cuenta lineal
+           es el efecto que lleva cualquier página; esto es su oficio. */
+        var n = e.target, fin = +n.dataset.h, t0 = performance.now();
+        var osc = document.createElement('i');
+        osc.className = 'osc'; osc.setAttribute('aria-hidden', 'true');
+        var caja = n.closest('.cf'); if (caja) caja.querySelector('.n').appendChild(osc);
+        (function paso(t) {
+          var k = (t - t0) / 1700;
+          var amort = Math.exp(-4.6 * k);
+          var v = fin * (1 - amort * Math.cos(8.6 * k));
+          n.textContent = Math.max(0, Math.round(v));
+          if (osc) osc.style.transform = 'scaleX(' + amort.toFixed(3) + ')';
+          if (k < 1) requestAnimationFrame(paso);
+          else { n.textContent = fin; if (osc && osc.parentNode) osc.parentNode.removeChild(osc); }
+        })(t0);
+        ojo.unobserve(n);
+      });
+    }, { threshold: .6 });
+    document.querySelectorAll('.cu').forEach(function (n) { ojo.observe(n); });
+  }
+
+  /* ══ 8 · reloj y trayectoria ════════════════════════════════════════ */
+  var rj = document.getElementById('rj');
+  function pintarReloj() {
+    try {
+      if (rj) rj.textContent = new Intl.DateTimeFormat('es-MX', {
+        timeZone: 'America/Mexico_City', hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(new Date());
+    } catch (_) {}
+  }
+
+  var PUESTOS = [
+    { k: 'elektra', ini: [2013, 11], fin: [2018, 3], tono: 't1', claro: 0 },
+    { k: 'bside',   ini: [2018, 3],  fin: [2019, 7], tono: 't2', claro: 0 },
+    { k: 'nutanix', ini: [2019, 7],  fin: null,      tono: 't3', claro: 1 }
+  ];
+  var NOM = { elektra: 'Grupo Elektra', bside: 'bSide', nutanix: 'Nutanix' };
+  var NOMPUESTO = { elektra: 'Ingeniero de Seguridad Especializado',
+                    bside: 'Arquitecto de Soluciones TI',
+                    nutanix: 'Site Reliability Engineer' };
+  document.querySelectorAll('.pu[data-emp]').forEach(function (n) {
+    n.style.setProperty('--marca-emp', TONO[n.dataset.emp] || 'var(--ocre)');
+  });
+  function meses(a, b) { return (b[0] - a[0]) * 12 + (b[1] - a[1]); }
+
+  function pintarBarra() {
+    var bv = document.getElementById('bv'), eje = document.getElementById('eje');
+    if (!bv || !eje) return;
+    var hoy = new Date(), fin = [hoy.getFullYear(), hoy.getMonth()], ini = PUESTOS[0].ini;
+    var total = meses(ini, fin); if (total <= 0) return;
+    bv.innerHTML = '';
+    PUESTOS.forEach(function (p, i) {
+      var f = p.fin || fin, d = document.createElement('div');
+      d.className = 'tr';
+      d.dataset.k = p.k;
+      // El 4px de gap NO cabe dentro del 100%: tres tramos que suman 100% más
+      // dos gaps desbordaban la barra 8px exactos. Se le descuenta a cada
+      // tramo su parte proporcional del hueco.
+      var hueco = 4 * (PUESTOS.length - 1) / PUESTOS.length;
+      d.style.flex = '0 0 calc(' + (meses(p.ini, f) / total) * 100 + '% - ' + hueco + 'px)';
+      d.style.background = 'var(--' + p.tono + ')';
+      d.style.transitionDelay = (0.1 + i * 0.2) + 's';
+      if (p.claro) d.dataset.claro = '1';
+      d.innerHTML = '<span class="et"></span>';
+      d.querySelector('.et').textContent = NOM[p.k];
+      d.title = NOM[p.k];
+      bv.appendChild(d);
+      /* El enlace es recíproco: desde la barra también se enfoca el puesto. */
+      if (typeof ligar === 'function') ligar(d, p.k);
+    });
+    eje.innerHTML = '';
+    for (var a = ini[0] + 1; a <= fin[0]; a += 2) {
+      var pos = (meses(ini, [a, 0]) / total) * 100;
+      if (pos < 2 || pos > 98) continue;
+      var t = document.createElement('div');
+      t.className = 'tic'; t.style.left = pos + '%';
+      t.innerHTML = '<i class="m"><span></span></i>';
+      t.querySelector('span').textContent = a;
+      t.querySelector('span').style.transitionDelay = (0.25 + (a - ini[0]) * 0.055) + 's';
+      eje.appendChild(t);
+    }
+    var hoy2 = document.createElement('div');
+    hoy2.className = 'hoy';
+    hoy2.innerHTML = '<i aria-hidden="true"></i><span></span>';
+    hoy2.querySelector('span').textContent = T.hoy;
+    eje.appendChild(hoy2);
+    /* Cada puesto del historial lleva su proporción de los doce años,
+       calculada de las mismas fechas que la barra: un solo origen de verdad. */
+    document.querySelectorAll('.pu[data-emp]').forEach(function (n) {
+      var q = null;
+      PUESTOS.forEach(function (x) { if (x.k === n.dataset.emp) q = x; });
+      if (!q) return;
+      var meta = n.querySelector('.pu-meta'); if (!meta) return;
+      var mi = meta.querySelector('.mini');
+      if (!mi) {
+        mi = document.createElement('span');
+        mi.className = 'mini'; mi.setAttribute('aria-hidden', 'true');
+        mi.innerHTML = '<i></i>'; meta.appendChild(mi);
+      }
+      mi.firstChild.style.width = ((meses(q.ini, q.fin || fin) / total) * 100).toFixed(1) + '%';
+    });
+
+    var du = document.getElementById('dur');
+    if (du) { var m = meses([2019, 7], fin); du.textContent = T.dur(Math.floor(m / 12), m % 12); }
+    var na = document.getElementById('n-anios');
+    if (na) { na.dataset.h = String(hoy.getFullYear() - 2006); na.textContent = na.dataset.h; }
+    var an = document.getElementById('anio'); if (an) an.textContent = '© ' + hoy.getFullYear();
+  }
+
+
+  /* ══ 10 · MODO INCIDENTE ═══════════════════════════════════════════════
+     La portada afirma «mantengo en pie los sistemas que no se pueden caer».
+     Esto lo demuestra: se tira la página y se la ve recuperarse sola, por
+     fases, con su telemetría. Lo que hace un SRE sólo se nota cuando algo
+     falla, así que la única forma honesta de enseñarlo es hacer que falle.
+
+     Es voluntario —hay que pulsar— y se anuncia como simulación. Nada de
+     esto anima `opacity` sobre texto: la consola entra desplazándose y su
+     texto está siempre a opacidad plena. */
+  var FASES = [
+    { ms: 0,    k: 'alerta',  lat: [38, 910] },
+    { ms: 1600, k: 'diag',    lat: [910, 985] },
+    { ms: 3400, k: 'mitiga',  lat: [985, 220] },
+    { ms: 5100, k: 'resuelto',lat: [220, 41] },
+    { ms: 7600, k: 'fin' }
+  ];
+  var TEXTO = {
+    es: {
+      alerta:  ['SEV 1', 'Pérdida de disponibilidad en el clúster de producción'],
+      diag:    ['Diagnóstico', 'Causa raíz: un nodo degradado dejó de replicar'],
+      mitiga:  ['Mitigando', 'Conmutación al nodo sano, replicación en curso'],
+      resuelto:['Resuelto', 'Servicio restablecido. Esto es lo que hago; normalmente no se ve.'],
+      lat: 'ms', sim: 'simulación'
+    },
+    en: {
+      alerta:  ['SEV 1', 'Availability loss on the production cluster'],
+      diag:    ['Diagnosis', 'Root cause: a degraded node stopped replicating'],
+      mitiga:  ['Mitigating', 'Failover to the healthy node, replication in progress'],
+      resuelto:['Resolved', 'Service restored. This is what I do; normally you never see it.'],
+      lat: 'ms', sim: 'simulation'
+    }
+  };
+
+  var cinta = document.getElementById('cinta');
+  var cFase = document.getElementById('cinta-fase');
+  var cDsc  = document.getElementById('cinta-dsc');
+  var cNum  = document.getElementById('cinta-num');
+  var cGraf = cinta && cinta.querySelector('.graf path');
+  var botInc = document.getElementById('inc');
+  var incT0 = 0, incActivo = false, incFase = '', muestras = [], latAct = 38, relojQ = null;
+
+  function pintarGrafico() {
+    if (!cGraf || !muestras.length) return;
+    var n = muestras.length, d = '';
+    for (var i = 0; i < n; i++) {
+      var x = (i / (n - 1 || 1)) * 150;
+      var y = 20 - Math.min(1, muestras[i] / 1000) * 18;
+      d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+    }
+    cGraf.setAttribute('d', d);
+  }
+
+  function pasoIncidente(ms) {
+    if (!incActivo) return;
+    var t = ms - incT0, f = FASES[0], sig = null;
+    for (var i = 0; i < FASES.length; i++) {
+      if (t >= FASES[i].ms) { f = FASES[i]; sig = FASES[i + 1] || null; }
+    }
+    if (f.k === 'fin') { cerrarIncidente(); return; }
+
+    var tr = sig ? Math.min(1, (t - f.ms) / (sig.ms - f.ms)) : 1;
+    var suave = tr < .5 ? 2 * tr * tr : 1 - Math.pow(-2 * tr + 2, 2) / 2;
+    var objetivo = f.lat[0] + (f.lat[1] - f.lat[0]) * suave;
+    var ruido = (Math.sin(ms * .019) + Math.sin(ms * .041)) * (f.k === 'diag' ? 26 : 11);
+    latAct += (objetivo + ruido - latAct) * .22;
+
+    if (ms - (pasoIncidente.ult || 0) > 55) {
+      pasoIncidente.ult = ms;
+      muestras.push(Math.max(8, latAct));
+      if (muestras.length > 46) muestras.shift();
+      pintarGrafico();
+    }
+
+    var T = TEXTO[raiz.lang === 'en' ? 'en' : 'es'];
+    if (f.k !== incFase) {
+      incFase = f.k;
+      cFase.textContent = T[f.k][0];
+      cDsc.textContent = T[f.k][1];
+      cinta.setAttribute('data-fase', f.k === 'resuelto' ? 'resuelto'
+        : f.k === 'mitiga' ? 'mitigando' : 'caido');
+      if (f.k === 'mitiga' || f.k === 'resuelto') sanarNube();
+      if (f.k === 'resuelto') {
+        var pt2 = document.querySelector('.barra .pt'); if (pt2) pt2.classList.remove('mal');
+        /* El trazo se vuelve a dibujar solo: la recuperación también es
+           identidad, no sólo un color que cambia. */
+        var mm2 = document.getElementById('marcaM');
+        if (mm2) {
+          mm2.removeAttribute('data-mal');
+          var pth = mm2.querySelector('path');
+          pth.style.animation = 'none'; void pth.getBoundingClientRect();
+          pth.style.animation = '';
+        }
+      }
+    }
+    var seg = Math.floor(t / 1000);
+    cNum.textContent = (f.k === 'resuelto'
+      ? 'MTTR ' + ('0' + Math.floor(seg / 60)).slice(-2) + ':' + ('0' + (seg % 60)).slice(-2)
+      : Math.round(latAct) + ' ' + T.lat + '  ·  T+' +
+        ('0' + Math.floor(seg / 60)).slice(-2) + ':' + ('0' + (seg % 60)).slice(-2));
+  }
+
+  function romperNube() {
+    if (quieto || !nube) return;
+    nube.classList.add('caido');
+    for (var i = 0; i < fichas.length; i++) {
+      var f = fichas[i];
+      f.escMeta = .84 + (i % 3) * .05;
+      f.el.style.filter = (i % 4 === 0)
+        ? 'none' : 'blur(' + (2 + (i % 3)) + 'px) saturate(.15)';
+      if (i % 4 === 0) { f.el.style.background = 'var(--alarma)'; f.el.style.color = '#FFF1EE'; }
+    }
+  }
+  function sanarNube() {
+    if (!nube) return;
+    nube.classList.remove('caido');
+    for (var i = 0; i < fichas.length; i++) {
+      var f = fichas[i];
+      f.escMeta = 1;
+      f.el.style.filter = f.desenfoque;
+      f.el.style.background = ''; f.el.style.color = '';
+    }
+  }
+
+  function abrirIncidente() {
+    if (incActivo || !cinta) return;
+    incActivo = true; incT0 = performance.now(); incFase = ''; muestras = []; latAct = 38;
+    cinta.setAttribute('data-on', '');
+    if (botInc) { botInc.setAttribute('disabled', ''); }
+    var pt = document.querySelector('.barra .pt'); if (pt) pt.classList.add('mal');
+    var mm = document.getElementById('marcaM'); if (mm) mm.setAttribute('data-mal', '');
+    if (!quieto) {
+      var h1 = document.querySelector('.portada h1');
+      if (h1) { h1.classList.add('sacude'); setTimeout(function () { h1.classList.remove('sacude'); }, 900); }
+      romperNube();
+      viva = true; arrancar();
+    } else {
+      /* Con movimiento reducido no hay sacudida ni fichas revueltas: la
+         consola igual recorre sus fases, porque eso es información, no
+         decoración. La mueve un temporizador y no el bucle de la nube. */
+      relojQ = setInterval(function () { pasoIncidente(performance.now()); }, 220);
+      pasoIncidente(performance.now());
+    }
+  }
+
+  function cerrarIncidente() {
+    incActivo = false;
+    if (relojQ) { clearInterval(relojQ); relojQ = null; }
+    if (cinta) cinta.removeAttribute('data-on');
+    var pt = document.querySelector('.barra .pt'); if (pt) pt.classList.remove('mal');
+    var mm3 = document.getElementById('marcaM'); if (mm3) mm3.removeAttribute('data-mal');
+    sanarNube();
+    setTimeout(function () { if (botInc) botInc.removeAttribute('disabled'); }, 700);
+  }
+
+  if (botInc) botInc.addEventListener('click', abrirIncidente);
+
+  /* ══ 11 · enlace cruzado y onda del ping ═══════════════════════════════ */
+  function ligar(n, emp) {
+    n.addEventListener('pointerenter', function () { if (!incActivo) enfocar(emp); });
+    n.addEventListener('pointerleave', function () { if (!incActivo) enfocar(null); });
+    n.addEventListener('focusin', function () { if (!incActivo) enfocar(emp); });
+    n.addEventListener('focusout', function () { if (!incActivo) enfocar(null); });
+  }
+  document.querySelectorAll('.pu[data-emp]').forEach(function (n) { ligar(n, n.dataset.emp); });
+
+  var zonaPing = document.querySelector('.portada');
+  if (zonaPing && nube && !quieto) {
+    zonaPing.addEventListener('pointerdown', function (ev) {
+      var r = nube.getBoundingClientRect();
+      ping = { x: ev.clientX - r.left - r.width / 2,
+               y: ev.clientY - r.top - r.height / 2,
+               t: performance.now() };
+      viva = true; arrancar();
+    }, { passive: true });
+  }
+
+  /* ══ 12 · la escena de scroll ═══════════════════════════════════════
+     El scroll de esta sección es el eje del tiempo. Se calcula el avance
+     dentro del tramo fijo, se coloca el cabezal y se lee qué puesto cae
+     debajo. El cambio de texto va con máscara, nunca con opacidad. */
+  var DICHO = {
+    es: {
+      elektra: 'Hacking ético sobre los sistemas de un grupo financiero y comercial. Certificar la seguridad de lo que iba a producción.',
+      bside:   'Arquitectura de nube para empresa y gobierno. 8 PB migrados y más de 38 proyectos entregados en Azure.',
+      nutanix: 'Soporte de producción en el equipo global, sobre cuatro regiones y en inglés. Diagnóstico de causa raíz, HA, DRP y BCP.'
+    },
+    en: {
+      elektra: 'Ethical hacking across a financial and retail group. Certifying the security of whatever was going to production.',
+      bside:   'Cloud architecture for enterprise and government. 8 PB migrated and more than 38 projects delivered on Azure.',
+      nutanix: 'Production support in the global team, across four regions and in English. Root cause analysis, HA, DRP and BCP.'
+    }
+  };
+  var MES = { es: ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],
+              en: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'] };
+
+  var escena = document.getElementById('escena');
+  var cabezal = document.getElementById('cabezal');
+  var lector = document.getElementById('lector');
+  var lFch = document.getElementById('l-fch'), lPst = document.getElementById('l-pst');
+  var lEmp = document.getElementById('l-emp'), lQq = document.getElementById('l-qq');
+  var ultimoK = '', pedidoEsc = false;
+
+  function pasoEscena() {
+    pedidoEsc = false;
+    if (!escena || !cabezal || quieto) return;
+    var r = escena.getBoundingClientRect();
+    var recorrido = r.height - innerHeight;
+    if (recorrido <= 0) return;
+    var av = Math.min(1, Math.max(0, -r.top / recorrido));
+    cabezal.style.left = (av * 100).toFixed(2) + '%';
+
+    var hoy = new Date(), fin = [hoy.getFullYear(), hoy.getMonth()], ini = PUESTOS[0].ini;
+    var total = meses(ini, fin);
+    var m = Math.round(av * total);
+    var anio = ini[0] + Math.floor((ini[1] + m) / 12), mes = (ini[1] + m) % 12;
+    var idi = raiz.lang === 'en' ? 'en' : 'es';
+
+    var q = PUESTOS[0];
+    PUESTOS.forEach(function (x) {
+      if (meses(ini, x.ini) <= m) q = x;
+    });
+    lFch.textContent = MES[idi][mes] + ' ' + anio;
+    if (q.k !== ultimoK) {
+      ultimoK = q.k;
+      /* El cambio se hace con la máscara: se sube el renglón viejo, se
+         escribe el nuevo y se baja. Nada parpadea ni se vuelve translúcido. */
+      lector.setAttribute('data-cambia', '');
+      setTimeout(function () {
+        lPst.textContent = (T.puestos && T.puestos[q.k]) || NOMPUESTO[q.k];
+        lEmp.textContent = NOM[q.k];
+        lQq.textContent = DICHO[idi][q.k];
+        lector.removeAttribute('data-cambia');
+      }, 300);
+      enfocar(q.k);
+    }
+  }
+  function pedirEscena() {
+    if (!pedidoEsc) { pedidoEsc = true; requestAnimationFrame(pasoEscena); }
+  }
+  if (escena) {
+    addEventListener('scroll', pedirEscena, { passive: true });
+    addEventListener('resize', pedirEscena);
+  }
+
+  /* ══ 9 · idioma ═════════════════════════════════════════════════════ */
+  var ES = { dur: function (a, m) { return a + ' años ' + m + ' meses'; }, hoy: 'hoy',
+    puestos: { elektra: 'Ingeniero de Seguridad Especializado',
+               bside: 'Arquitecto de Soluciones TI',
+               nutanix: 'Site Reliability Engineer' } };
+  var EN = {
+    dur: function (a, m) { return a + ' yr ' + m + ' mo'; },
+    hoy: 'today',
+    puestos: { elektra: 'Specialized Security Engineer',
+               bside: 'IT Solutions Architect',
+               nutanix: 'Site Reliability Engineer' },
+    html: {
+      nav1: 'What I solve', nav2: 'Track record', nav3: 'Credentials', nav4: 'Contact',
+      ceja: 'Site Reliability Engineering · Cloud · Security',
+      h1a: 'Maurice Valdés', h1b: 'Bermúdez',
+      tesis: 'I keep the systems that cannot go down, up.',
+      cta1: 'Get in touch', cta2: 'View CV', inc: 'Trigger an outage',
+      cejaN: 'In numbers', nT1: 'Twenty years.', nT2: 'Not one gap.',
+      c1q: 'Years in operations, security and infrastructure', c1d: 'since 2006',
+      c2q: 'Regions in the global support rotation',
+      c3q: 'Of storage migrated and configured', c3d: 'Lift &amp; Shift',
+      c4q: 'Corporate cloud projects delivered',
+      cejaT: 'Availability', tT1: 'First break it.', tT2: 'Then build it.',
+      tT3: 'Now keep it standing.',
+      tSub: 'Three houses in twelve years, each one closer to the problem than the last. The bar comes from the real dates: there is not a single empty month between them.',
+      cejaD: 'What I solve', dT1: 'Three trades that', dT2: 'need each other.',
+      dSub: "These aren't three separate rungs on a résumé: they are the three things you need at once for a critical system to survive a bad day.",
+      d1t: 'Reliability', d1q: 'Keeping the service up after something has already failed.',
+      d1a: 'Troubleshooting Nutanix hyperconverged infrastructure',
+      d1b: 'High availability, DRP and business continuity',
+      d1c: 'Data protection and disaster recovery',
+      d1d: 'Performance analysis — and training the people who do it',
+      d1e: 'Hyper-V, VMware, AHV and Citrix', d1f: 'Advanced network troubleshooting',
+      d2t: 'Cloud and architecture', d2q: 'Moving what already exists without switching it off.',
+      d2a: 'Lift &amp; Shift virtual machine migration',
+      d2b: 'Design, build and analysis of Azure architecture',
+      d2c: 'Azure IaaS and on-premise operation',
+      d2d: 'Petabyte-scale storage', d2e: 'Provisioning of HA, DRP and BCP architectures',
+      d2f: 'Enterprise and government projects',
+      d3t: 'Security', d3q: 'Finding the hole before somebody else does.',
+      d3a: 'Certified ethical hacking (CEH, EC-Council)',
+      d3b: 'Pentesting and secure architecture assessment',
+      d3c: 'Security certification of applications and systems',
+      d3d: 'Security incident response and communication',
+      d3e: 'Linux servers and firewalls',
+      d3f: 'AAA and AAA+; Novell IDM, eDirectory, Sentinel',
+      cejaH: 'History', hT1: 'Where the problem', hT2: 'was each time.',
+      p1f: 'Aug 2019 — present', p1t: 'Site Reliability Engineer',
+      p1a: 'Global <b>SRE</b> support in a multicultural team spread across the United States, India, Australia and Mexico, working in English.',
+      p1b: 'Troubleshooting of the Nutanix hyperconverged solution and the <b>performance virtual team</b>.',
+      p1c: 'Support across <b>Hyper-V, VMware, AHV and Citrix</b>.',
+      p1d: 'Data protection and disaster recovery.',
+      p1e: 'Internal <b>trainer</b> for performance troubleshooting.',
+      p1g: '<b>HA, DRP and BCP</b> architectures and their provisioning.',
+      p1h: 'Linux server and firewall security; advanced network analysis.',
+      p2f: 'Apr 2018 — Aug 2019', p2d: '1 yr 4 mo', p2t: 'IT Solutions Architect',
+      p2a: 'Enterprise and government Azure projects: <b>Pemex, IMSS, Actica</b> and more than 38 in total.',
+      p2b: '<b>Lift &amp; Shift</b> migration with <b>8 PB</b> of storage configured.',
+      p2c: 'Design, build, implementation and analysis of cloud architecture.',
+      p2e: 'Secure architecture: assessment and pentesting.',
+      p2g: 'Azure IaaS and on-premise operation; HA, DRP and BCP.',
+      p3f: 'Dec 2013 — Apr 2018', p3d: '4 yr 4 mo', p3t: 'Specialized Security Engineer',
+      p3a: '<b>Ethical hacking</b> across the group’s systems.',
+      p3b: 'Security certification of applications and operating systems.',
+      p3c: 'Secure architecture analysis and incident response.',
+      p3e: '<b>Novell Identity Manager</b>, eDirectory and Sentinel.',
+      p3f2: 'High-transaction <b>AAA and AAA+</b> servers.',
+      p3g: 'HA architectures and Linux/firewall security.',
+      cejaC: 'Credentials', cT1: 'Certified,', cT2: 'not just practised.',
+      rot1: 'Certifications', rot2: 'Education',
+      e1: 'Master’s Degree in Management and Business Administration (MBA)<small>Universidad del Valle de México · Universidad Europea de Madrid</small>',
+      e2: 'B.Eng. in Computer Systems Engineering<small>Universidad del Valle de México</small>',
+      e3: 'Technician in Microcomputer Operation<small>Initial technical training</small>',
+      cejaX: 'Contact', xT1: 'Got something', xT2: 'that cannot go down?',
+      xSub: 'Write to me and we will look at it. I answer in Spanish or English, and I work with teams in any of the four time zones.',
+      v1: 'Email', v2: 'Phone', v3: 'Location', v3v: 'Mexico City'
+    }
+  };
+
+  var orig = {};
+  document.querySelectorAll('[data-i18n]').forEach(function (n) { orig[n.dataset.i18n] = n.innerHTML; });
+  var T = ES, bi = document.getElementById('idi');
+
+  function aplicar(en) {
+    T = en ? EN : ES;
+    raiz.lang = en ? 'en' : 'es';
+    document.querySelectorAll('[data-i18n]').forEach(function (n) {
+      var v = en ? EN.html[n.dataset.i18n] : orig[n.dataset.i18n];
+      if (v != null) n.innerHTML = v;
+    });
+    var cv = document.getElementById('cv');
+    if (cv) cv.href = 'cv-maurice-valdes-bermudez-' + (en ? 'en' : 'es') + '.pdf';
+    if (bi) {
+      bi.textContent = en ? 'ES' : 'EN';
+      bi.setAttribute('aria-label', en ? 'Leer esta página en español' : 'Read this page in English');
+    }
+    pintarBarra();
+    /* La nube se vuelve a sembrar porque el hueco se MIDE sobre el bloque de
+       texto, y ese bloque cambia de tamaño al cambiar de idioma. */
+    if (typeof sembrarNube === 'function') sembrarNube();
+    ultimoK = '';                       // fuerza a reescribir el lector
+    pasoEscena();
+  }
+  if (bi) bi.addEventListener('click', function () { aplicar(raiz.lang !== 'en'); });
+
+  /* La longitud del trazo se MIDE: si se escribe a ojo en el dasharray, el
+     dibujado empieza con un trozo ya pintado o se queda corto al final. */
+  var mTraz = document.querySelector('.marca i path');
+  if (mTraz && mTraz.getTotalLength) {
+    var lg = Math.ceil(mTraz.getTotalLength());
+    mTraz.parentNode.parentNode.style.setProperty('--lg', lg);
+  }
+
+  pintarReloj(); pintarBarra(); revelar(); contadores(); pasoEscena();
+  setInterval(pintarReloj, 30000);
+})();
+</script>
+
+</body>
+</html>

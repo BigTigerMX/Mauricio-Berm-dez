@@ -1,0 +1,75 @@
+# Publica el sitio en GitHub Pages.
+#
+# POR QUÉ UN WORKFLOW Y NO LA API: el repositorio es privado y la API de Pages
+# no se puede llamar desde fuera en este entorno. `configure-pages` con
+# `enablement: true` la enciende DESDE DENTRO de GitHub, así que no hace falta
+# tocar la configuración a mano.
+#
+# QUÉ SE PUBLICA Y QUÉ NO. Se arma una carpeta aparte en vez de servir la raíz
+# del repositorio: `cv/` lleva la revisión con el análisis de sueldo, que dice
+# «documento interno, no se envía con la candidatura», y `taller/` lleva los
+# generadores. Nada de eso tiene por qué quedar colgado en una dirección
+# pública. Se copia sólo lo que el sitio pide.
+name: publicar
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Armar la carpeta del sitio
+        run: |
+          set -e
+          mkdir -p _sitio
+          cp index.html _sitio/
+          cp retrato.webp tarjeta-social.jpg _sitio/
+          cp cv-maurice-valdes-bermudez-es.pdf _sitio/
+          cp cv-maurice-valdes-bermudez-en.pdf _sitio/
+          # Sin esto Jekyll se come cualquier archivo que empiece por guion bajo.
+          touch _sitio/.nojekyll
+          echo "Contenido publicado:"; ls -la _sitio
+
+      - name: Comprobar que no se cuela nada privado
+        run: |
+          set -e
+          for prohibido in revision-y-carta-de-presentacion README.md taller cv/; do
+            if find _sitio -name "*${prohibido}*" | grep -q .; then
+              echo "ABORTADO: «$prohibido» no puede publicarse"; exit 1
+            fi
+          done
+          test -f _sitio/index.html
+          grep -q "noindex" _sitio/index.html || { echo "ABORTADO: falta noindex"; exit 1; }
+          echo "Nada privado en la carpeta, y el noindex sigue puesto."
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _sitio
+
+  desplegar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - id: pages
+        uses: actions/deploy-pages@v4
